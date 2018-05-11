@@ -14,13 +14,13 @@ print("Autor: Carlos Mauricio Silva")
 print("Versión: 0.1")
 print("_______________________________________")
 print("\nLas imágenes FITS deben estar en un directorio llamado")
-print('''"pyreduc", dentro del directorio home.''')
+print('''"pyreduc/FITS/", dentro del directorio home.''')
 print("Los prefijos de los archivos deben seguir las siguientes regla:")
 print(''' FLATS: "flat*"\n DARKS: "dark*"\n BIAS: "bias*" \ndonde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado\n''')
 
 # Selecciono el directorio de trabajo
 home = str(Path.home())
-os.chdir(home+"/pyreduc")
+os.chdir(home+"/pyreduc/FITS")
 
 # Pido al usuario el prefijo de los archivos light
 print("\n¡CUIDADO! El proceso que está por comenzar sobreescribirá sus imágenes. Asegúrese de tener una copia en otra carpeta.")
