@@ -3,7 +3,7 @@
 import numpy as np
 import pyfits as ft
 import glob
-import os
+import os, shutil
 from pathlib import Path
 
 # Presentación
@@ -22,8 +22,39 @@ print(''' FLATS: "flat*"\n DARKS: "dark*"\n BIAS: "bias*" \ndonde "*" significa 
 home = str(Path.home())
 os.chdir(home+"/pyreduc/FITS")
 
+
+def copia_de_imagenes():
+    # Hago una copia de todos los archivos para no sobreescribir los FITS
+    # En la carpeta ~/pyreduc/procesado/
+    home = str(Path.home())
+    os.chdir(home+"/pyreduc/FITS")
+    origen = os.getcwd()
+    destino = home+"/pyreduc/procesado/"
+    ignorar_pat = shutil.ignore_patterns('*.seq')
+    print("Aguarde mientras se crea una copia de sus imágenes\n") 
+    if os.path.exists(destino): # Si el directorio destino existe, lo elimino con todo su contenido
+        print("Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/")
+        input("Para cancelar la operación presione Ctrl+C. Para continuar presione cualquier tecla")
+        shutil.rmtree(destino)
+        try:                   # Y ahora lo vuelvo a crear copiando todas las imagenes allí     
+            arbol = shutil.copytree(origen, destino, ignore=ignorar_pat) 
+            print('Todas las imágenes se han copiado a', arbol)
+        except:
+            print('Error en la copia')
+    else:
+        try:                        
+            arbol = shutil.copytree(origen, destino, ignore=ignorar_pat) 
+            print('Todas las imágenes se han copiado a', arbol)
+        except:
+            print('Error en la copia')
+ 
+
+copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
+continuar=input("Presione una tecla para continuar")
+os.chdir(home+"pyreduc/procesado")
+
 # Pido al usuario el prefijo de los archivos light
-print("\n¡CUIDADO! El proceso que está por comenzar sobreescribirá sus imágenes. Asegúrese de tener una copia en otra carpeta.")
+print("\nComenzando a trabajar con sus imágenes en el directorio", os.getcwd())
 prefijo=input("\nIntroduzca el prefijo de los archivos lights: ")
 
 # Construyo listas de tomas dark, bias, flat y lights
