@@ -1,7 +1,20 @@
 #!/usr/bin/python3
 
+# PyReduct
+# Programa de reducción de imágenes FITS
+# Autor: Carlos Mauricio Silva
+# Versión: 0.15
+#
+# Licencia GNU GENERAL PUBLIC LICENSE
+# Leer archivo LICENSE que se distribuye con este programa.
+#
+# Parte del código de calibración con Darks/Bias/Flats está
+# basado en el Tutorial "Cómo hacer una reducción básica de imágenes FITS con Python"
+# de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
+# que ya no se usa y ha sido reemplazada por astropy.io.fits.
+
 import numpy as np
-import pyfits as ft
+from astropy.io import fits as ft
 import glob
 import os, shutil
 from pathlib import Path
@@ -11,16 +24,19 @@ print("_______________________________________")
 print("PyReduct")
 print("\nPrograma de reducción de imágenes FITS")
 print("Autor: Carlos Mauricio Silva")
-print("Versión: 0.1")
+print("Versión: 0.15")
 print("_______________________________________")
 print("\nLas imágenes FITS deben estar en un directorio llamado")
 print('''"pyreduc/FITS/", dentro del directorio home.''')
 print("Los prefijos de los archivos deben seguir las siguientes regla:")
 print(''' FLATS: "flat*"\n DARKS: "dark*"\n BIAS: "bias*" \ndonde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado\n''')
 
-# Selecciono el directorio de trabajo
+# Averiguo el nombre del directorio home
 home = str(Path.home())
-os.chdir(home+"/pyreduc/FITS")
+
+#################
+### FUNCIONES ###
+#################
 
 
 def copia_de_imagenes():
@@ -31,27 +47,47 @@ def copia_de_imagenes():
     origen = os.getcwd()
     destino = home+"/pyreduc/procesado/"
     ignorar_pat = shutil.ignore_patterns('*.seq')
-    print("Aguarde mientras se crea una copia de sus imágenes\n") 
     if os.path.exists(destino): # Si el directorio destino existe, lo elimino con todo su contenido
         print("Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/")
-        input("Para cancelar la operación presione Ctrl+C. Para continuar presione cualquier tecla")
+        input("Para cancelar la operación presione Ctrl+C. Para continuar presione Enter")
         shutil.rmtree(destino)
+        print("Aguarde mientras se crea una copia de sus imágenes\n") 
         try:                   # Y ahora lo vuelvo a crear copiando todas las imagenes allí     
             arbol = shutil.copytree(origen, destino, ignore=ignorar_pat) 
             print('Todas las imágenes se han copiado a', arbol)
         except:
             print('Error en la copia')
     else:
+        print("Aguarde mientras se crea una copia de sus imágenes\n") 
         try:                        
             arbol = shutil.copytree(origen, destino, ignore=ignorar_pat) 
             print('Todas las imágenes se han copiado a', arbol)
         except:
             print('Error en la copia')
- 
+
+
+def resta_bias(lista,stacked_img):
+    for ii in lista:
+        ff=ft.open(ii)
+        img=ff[0].data
+        hdr=ff[0].header
+        ff.close()
+        img=img-stacked_img
+        hdr.add_comment("Procesado por BIAS con PyReduct")
+        ft.writeto(ii,img,header=hdr,clobber=True)  # clobber=True significa que va a sobreescribir el archivo.
+
+
+
+#####################
+### FIN FUNCIONES ###
+#####################
 
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
-continuar=input("Presione una tecla para continuar")
-os.chdir(home+"pyreduc/procesado")
+
+# continuar=input("Presione una tecla para continuar")
+
+# Voy al directorio donde están las imágenes copiadas
+os.chdir(home+"/pyreduc/procesado")
 
 # Pido al usuario el prefijo de los archivos light
 print("\nComenzando a trabajar con sus imágenes en el directorio", os.getcwd())
@@ -112,29 +148,15 @@ cubo_bias=np.sort(cubo_bias,axis=0)
 stbias=np.median(cubo_bias[0:numbias-1],axis=0)
 
 # Resto la nueva imagen a los lights
-for ii in lista_lights:
-    ff=ft.open(ii)
-    img=ff[0].data
-    hdr=ff[0].header
-    ff.close()
-    img=img-stbias
-    hdr.add_comment("Procesado por BIAS con PyReduct")
-    ft.writeto(ii,img,header=hdr,clobber=True)
-    
+resta_bias(lista_lights,stbias)
     
 # Resto la nueva imagen a los flats
-for ii in lista_flat:
-    ff=ft.open(ii)
-    img=ff[0].data
-    hdr=ff[0].header
-    ff.close()
-    img=img-stbias
-    hdr.add_comment("Procesado por BIAS con PyReduct")
-    ft.writeto(ii,img,header=hdr,clobber=True)
+resta_bias(lista_flat,stbias)
 
     
 
 # Proceso de FLATS. Voy a armar una matriz cúbica de los flats.
+# Nótese que los flats ya fueron procesados con los bias.
 print("\nProcesando FLATS. Por favor, aguarde...")
 # Genero una matriz 3D de ceros
 cubo_flat=np.zeros((numflat,ft.getval(lista_bias[1],'naxis2'),ft.getval(lista_bias[1],'naxis1')),dtype=float)
@@ -152,9 +174,13 @@ for ii in lista_flat:
     cubo_flat[nro,:,:]=np.copy(img)*med
     nro+=1
 
+# Creo una nueva imagen a partir de los valores medios, despreciando los valores más altos,
+# pero normalizo con la suma de las medianas de cada imagen.
 stflat=np.mean(cubo_flat[0:numflat-1],axis=0)/sum
 mflat=np.mean(stflat)
 
+
+# Divido las imágenes lights por el master-flat resultante.
 for ii in lista_lights:
     ff=ft.open(ii)
     img=ff[0].data

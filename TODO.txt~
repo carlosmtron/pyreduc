@@ -1,0 +1,16 @@
+v0.17 "Oscura"
+HECHO - Hacer un módulo para restar Bias a los lights y a los flats, y separarlo del 'main'
+HECHO - Cambiar la librería PyFits por astropy.io.fits
+- Actualizar comandos de PyFits que quedaron obsoletos
+- Hacer un módulo para restar los Darks
+- Solucionar el problema de escalado a 32 bits. Las imágenes resultantes de cada proceso tendrían que volver a ser de 16 bits.
+
+v0.15 "Respetuosa"
+HECHO - Que los archivos de imagen se copien a otro directorio para no sobreescribir los FITS originales.
+
+v0.11 "Ordenada"
+HECHO - Que los archivos de imagen estén en una carpeta separada del ejecutable.
+
+v0.1 "Original"
+HECHO - Subir todo a un repositorio Git
+HECHO - Procesado básico con Bias y Flats
