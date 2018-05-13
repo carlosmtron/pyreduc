@@ -1,3 +1,6 @@
+% ToDo List
+% Última actualización 13/05/2018
+
 v1.0
 - Registrado basado en PSF
 - Stacking de los Lights
