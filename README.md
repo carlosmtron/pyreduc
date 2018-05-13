@@ -1,5 +1,6 @@
-PyReduc
-Programa de reducción de imágenes astronómicas FITS usando Python
+# PyReduc
+
+## Programa de reducción de imágenes astronómicas FITS usando Python
 Autor: Carlos Mauricio Silva
 Versión: 0.15
 Licencia GNU GENERAL PUBLIC LICENSE
@@ -12,7 +13,7 @@ de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
 que ya no se usa y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
 _______________________________________________________
 
-USO DEL PROGRAMA:
+### USO DEL PROGRAMA:
 Para correr este programa es necesario tener instalado Python 3 y las librerías científicas numpy y astropy.io.
 Si está en un sistema operativo basado en Debian (como ubuntu) asegúrese de instalar las dependencias previamente:
 	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy
@@ -22,7 +23,7 @@ Extraiga el programa en el directorio "~/pyreduc/", donde ~/ representa su direc
 Para ejecutar el programa, estando en la carpeta ~/pyreduc/ ejecute la orden:
 	./reduccion.py
 
-IMPORTANTE:
+### IMPORTANTE:
 Las imágenes FITS deben estar en un directorio llamado "~/pyreduc/FITS/".
 - Los prefijos de los archivos deben seguir las siguientes regla:
 	FLATS: "flat*"
