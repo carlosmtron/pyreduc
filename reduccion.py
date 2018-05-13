@@ -74,7 +74,7 @@ def resta_bias(lista,stacked_img):
         ff.close()
         img=img-stacked_img
         hdr.add_comment("Procesado por BIAS con PyReduct")
-        ft.writeto(ii,img,header=hdr,clobber=True)  # clobber=True significa que va a sobreescribir el archivo.
+        ft.writeto(ii,img,header=hdr,overwrite=True)  # overwrite=True significa que va a sobreescribir el archivo.
 
 
 
@@ -188,6 +188,6 @@ for ii in lista_lights:
     ff.close()
     img=img/stflat*mflat
     hdr.add_comment("Procesado por FLATS con PyReduct")
-    ft.writeto(ii,img,header=hdr,clobber=True)
+    ft.writeto(ii,img,header=hdr,overwrite=True)
 
 
