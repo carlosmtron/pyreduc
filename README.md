@@ -11,7 +11,7 @@ Leer archivo LICENSE que se distribuye con este programa.
 ________________________________________________________
 
 Parte del código de calibración con Darks/Bias/Flats está
-basado en el Tutorial "Cómo hacer una reducción básica de imágenes FITS con Python"
+basado en el Tutorial *"Cómo hacer una reducción básica de imágenes FITS con Python"*
 de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
 que ya no se usa y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
 _______________________________________________________
@@ -41,10 +41,10 @@ donde "*" significa "cualquier cosa a partir de aquí".
 
 Por ejemplo:
 En la carpeta ~/pyreduc/FITS/ se tienen los archivos:
-	- bias001.fit, bias002.fit, bias003.fit bias004.fit,...
-	- darkA.fit, darkB.fit, darkC.fit,...
-	- flat_0001.fit,..., flat_0005.fit,..., flat_0011.fit
-	- RCnc_001.fit, RCnc_002.fit, RCnc_003.fit,...,
+- bias001.fit, bias002.fit, bias003.fit bias004.fit,...
+- darkA.fit, darkB.fit, darkC.fit,...
+- flat_0001.fit,..., flat_0005.fit,..., flat_0011.fit
+- RCnc_001.fit, RCnc_002.fit, RCnc_003.fit,...,
 entonces sus tomas de calibración tienen el nombre correcto. Cuando el programa pida el prefijo de las tomas LIGHTS (es decir, sus tomas científicas),
 se deberá ingresar por teclado:
 ```
