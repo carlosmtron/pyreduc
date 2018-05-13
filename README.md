@@ -40,11 +40,11 @@ donde "*" significa "cualquier cosa a partir de aquí".
 - El prefijo de los LIGHTS se ingresa por teclado.
 
 Por ejemplo:
-En la carpeta ~/pyreduc/FITS/ se tienen los archivos:
-- bias001.fit, bias002.fit, bias003.fit bias004.fit,...
-- darkA.fit, darkB.fit, darkC.fit,...
-- flat_0001.fit,..., flat_0005.fit,..., flat_0011.fit
-- RCnc_001.fit, RCnc_002.fit, RCnc_003.fit,...,
+- En la carpeta ~/pyreduc/FITS/ se tienen los archivos:
+  - bias001.fit, bias002.fit, bias003.fit bias004.fit,...
+  - darkA.fit, darkB.fit, darkC.fit,...
+  - flat_0001.fit,..., flat_0005.fit,..., flat_0011.fit
+  - RCnc_001.fit, RCnc_002.fit, RCnc_003.fit,...,
 entonces sus tomas de calibración tienen el nombre correcto. Cuando el programa pida el prefijo de las tomas LIGHTS (es decir, sus tomas científicas),
 se deberá ingresar por teclado:
 ```
