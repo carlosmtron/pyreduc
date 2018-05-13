@@ -11,9 +11,9 @@ Leer archivo LICENSE que se distribuye con este programa.
 ________________________________________________________
 
 Parte del código de calibración con Darks/Bias/Flats está
-basado en el Tutorial *"Cómo hacer una reducción básica de imágenes FITS con Python"*
-de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
-que ya no se usa y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
+basado en el tutorial *"Cómo hacer una reducción básica de imágenes FITS con Python"*
+de Ricardo Gil-Hutton. Este tutorial empleaba la librería PyFits, que ya no se usa
+y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
 _______________________________________________________
 
 ### INSTALACIÓN:
