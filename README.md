@@ -2,8 +2,11 @@
 
 ## Programa de reducción de imágenes astronómicas FITS usando Python
 Autor: Carlos Mauricio Silva
+
 Versión: 0.15
+
 Licencia GNU GENERAL PUBLIC LICENSE
+
 Leer archivo LICENSE que se distribuye con este programa.
 ________________________________________________________
 
@@ -13,22 +16,26 @@ de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
 que ya no se usa y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
 _______________________________________________________
 
-### USO DEL PROGRAMA:
+### INSTALACIÓN:
 Para correr este programa es necesario tener instalado Python 3 y las librerías científicas numpy y astropy.io.
 Si está en un sistema operativo basado en Debian (como ubuntu) asegúrese de instalar las dependencias previamente:
+```
 	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy
+```
 
 Extraiga el programa en el directorio "~/pyreduc/", donde ~/ representa su directorio home.
 
 Para ejecutar el programa, estando en la carpeta ~/pyreduc/ ejecute la orden:
+```
 	./reduccion.py
+```
 
 ### IMPORTANTE:
 Las imágenes FITS deben estar en un directorio llamado "~/pyreduc/FITS/".
 - Los prefijos de los archivos deben seguir las siguientes regla:
-	FLATS: "flat*"
-	DARKS: "dark*"
-	BIAS: "bias*"
+  - FLATS: "flat*"
+  - DARKS: "dark*"
+  - BIAS: "bias*"
 donde "*" significa "cualquier cosa a partir de aquí".
 - El prefijo de los LIGHTS se ingresa por teclado.
 
@@ -40,9 +47,11 @@ En la carpeta ~/pyreduc/FITS/ se tienen los archivos:
 	- RCnc_001.fit, RCnc_002.fit, RCnc_003.fit,...,
 entonces sus tomas de calibración tienen el nombre correcto. Cuando el programa pida el prefijo de las tomas LIGHTS (es decir, sus tomas científicas),
 se deberá ingresar por teclado:
+```
 	RCnc
-Nota: En este caso también puede ingresar "R", puesto que es el único prefijo de archivo que comienza con esa letra en su directorio FITS/.
+```
+Nota: *En este caso también puede ingresar "R", puesto que es el único prefijo de archivo que comienza con esa letra en su directorio FITS/.*
 
 
-Por favor, note que este programa no convierte imágenes RAW a FITS (¿Quizás en una próxima versión?).
+*Por favor, note que este programa no convierte imágenes RAW a FITS (¿Quizás en una próxima versión?).*
 
