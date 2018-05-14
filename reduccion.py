@@ -66,15 +66,17 @@ def copia_de_imagenes():
             print('Error en la copia')
 
 
-def resta_bias(lista,stacked_img):
+
+def resta_master(lista,stacked_img):
     for ii in lista:
         ff=ft.open(ii)
         img=ff[0].data
         hdr=ff[0].header
         ff.close()
         img=img-stacked_img
-        hdr.add_comment("Procesado por BIAS con PyReduct")
-        ft.writeto(ii,img,header=hdr,overwrite=True)  # overwrite=True significa que va a sobreescribir el archivo.
+        hdr.add_comment("Procesado por DARK y BIAS con PyReduct")
+        ft.writeto(ii,img,header=hdr,overwrite=True)  # overwrite=True va a sobreescribir cada archivo.
+
 
 
 
@@ -84,14 +86,13 @@ def resta_bias(lista,stacked_img):
 
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
 
-# continuar=input("Presione una tecla para continuar")
 
 # Voy al directorio donde están las imágenes copiadas
 os.chdir(home+"/pyreduc/procesado")
 
 # Pido al usuario el prefijo de los archivos light
 print("\nComenzando a trabajar con sus imágenes en el directorio", os.getcwd())
-prefijo=input("\nIntroduzca el prefijo de los archivos lights: ")
+prefijo=input("\nIntroduzca el prefijo de los archivos lights (tomas científicas): ")
 
 # Construyo listas de tomas dark, bias, flat y lights
 lista_dark=glob.glob("dark*.fit")
@@ -102,22 +103,27 @@ lista_lights=glob.glob(prefijo+"*.fit")
 print("\n")
 print("Archivos DARK:\n")
 for ii in lista_dark:
-    print("{:}: {:}x{:}".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1')))
+    print("{:}: {:}x{:}  EXPTIME={:} s".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1'),ft.getval(ii,'exptime')))
 
 print("\n")
 print("Archivos BIAS:\n")
 for ii in lista_bias:
-    print("{:}: {:}x{:}".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1')))
+    print("{:}: {:}x{:}  EXPTIME={:} s".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1'),ft.getval(ii,'exptime')))    
 
 print("\n")
 print("Archivos FLAT:\n")
 for ii in lista_flat:
-    print("{:}: {:}x{:}".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1')))
+    print("{:}: {:}x{:}  EXPTIME={:} s".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1'),ft.getval(ii,'exptime')))    
 
 print("\n")
-print("Archivos LIGHTS:\n")
+print("Archivos LIGHTS (tomas científicas):\n")
 for ii in lista_lights:
-    print("{:}: {:}x{:}".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1')))
+    print("{:}: {:}x{:}  EXPTIME={:} s".format(ii,ft.getval(ii,'naxis2'),ft.getval(ii,'naxis1'),ft.getval(ii,'exptime')))
+
+print("\nTenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.")
+print("PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.")
+
+continuar=input("Presione Enter para continuar")
 
 # Guardo la cantidad de archivos de cada lista en una variable distinta:
 numflat=len(lista_flat)
@@ -125,12 +131,17 @@ numbias=len(lista_bias)
 numdark=len(lista_dark)
 numlights=len(lista_lights)
 
+# Voy a obtener el tiempo de exposición de los lights, flats y darks
+# Voy a suponer que todas las tomas de un mismo tipo tienen la misma exposición.
+exp_lights=ft.getval(lista_lights[0],'exptime')
+exp_flat=ft.getval(lista_flat[0],'exptime')
+exp_dark=ft.getval(lista_dark[0], 'exptime')
 
 # Proceso de BIAS. Voy a armar una matriz cúbica de los bias.
 print("\nProcesando BIAS. Por favor, aguarde...")
 
 # Genero una matriz 3D de ceros
-cubo_bias=np.zeros((numbias,ft.getval(lista_bias[1],'naxis2'),ft.getval(lista_bias[1],'naxis1')),dtype=float)
+cubo_bias=np.zeros((numbias,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
 # Copio los BIAS a la matriz cúbica
 nro=0
 for ii in lista_bias:
@@ -147,19 +158,51 @@ cubo_bias=np.sort(cubo_bias,axis=0)
 # Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
 stbias=np.median(cubo_bias[0:numbias-1],axis=0)
 
-# Resto la nueva imagen a los lights
-resta_bias(lista_lights,stbias)
-    
-# Resto la nueva imagen a los flats
-resta_bias(lista_flat,stbias)
 
+
+# Proceso de DARK.
+print("\nProcesando DARK. Por favor, aguarde...")
+
+# Genero una matriz 3D de ceros
+cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
+# Copio los DARK a la matriz cúbica
+nro=0
+for ii in lista_dark:
+    ff=ft.open(ii)
+    img=ff[0].data
+    hdr=ff[0].header
+    ff.close()
+    cubo_dark[nro,:,:]=np.copy(img)
+    nro+=1
     
+
+# Ordeno los pixeles de mayor a menor a lo largo del primer eje.
+cubo_dark=np.sort(cubo_dark,axis=0)
+
+# Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
+stdark=np.median(cubo_dark[0:numbias-1],axis=0)
+
+
+# Ahora voy a crear una imagen que es la suma de DARKs y BIAS
+# para corregir los lights
+master_stack = stbias + stdark/exp_dark*exp_lights
+
+# Resto la nueva imagen a los lights
+resta_master(lista_lights, master_stack)
+
+
+# para corregir los flats
+master_stack = stbias + stdark/exp_dark*exp_flat
+
+# Resto la nueva imagen a los flats
+resta_master(lista_flat, master_stack)
+
 
 # Proceso de FLATS. Voy a armar una matriz cúbica de los flats.
-# Nótese que los flats ya fueron procesados con los bias.
+# Nótese que los flats ya fueron corregidos con bias.
 print("\nProcesando FLATS. Por favor, aguarde...")
 # Genero una matriz 3D de ceros
-cubo_flat=np.zeros((numflat,ft.getval(lista_bias[1],'naxis2'),ft.getval(lista_bias[1],'naxis1')),dtype=float)
+cubo_flat=np.zeros((numflat,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
 
 # Copio los FLATS a la matriz cúbica
 nro=0
@@ -180,6 +223,10 @@ stflat=np.mean(cubo_flat[0:numflat-1],axis=0)/sum
 mflat=np.mean(stflat)
 
 
+print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
+confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de salir? (s/N)")
+
+
 # Divido las imágenes lights por el master-flat resultante.
 for ii in lista_lights:
     ff=ft.open(ii)
@@ -189,5 +236,15 @@ for ii in lista_lights:
     img=img/stflat*mflat
     hdr.add_comment("Procesado por FLATS con PyReduct")
     ft.writeto(ii,img,header=hdr,overwrite=True)
+    # Si queremos pasar la imagen a 16 bits sin signo (No funciona muy bien):
+    if(confirma_escalar=="s" or confirma_escalar=="S"):
+        ff=ft.open(ii)
+        hdu=ff[0]
+        hdu.scale('uint16')
+        ff.close()
+        ft.writeto(ii,hdu.data,header=hdu.header,overwrite=True)
+
+   
+    
 
 

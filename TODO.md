@@ -7,6 +7,7 @@ v1.0
 
 v0.7 "Avanzada"
 - [ ] ¿Implementar PSF?
+- [ ] Solucionar el problema de escalado a 64 bits. Las imágenes resultantes de cada proceso tendrían que volver a ser de 16 bits.
 
 v0.3 "Amanecida"
 - [ ] ¿Debayering sí o no?
@@ -17,8 +18,7 @@ v0.17 "Oscura"
 - [x] Hacer un módulo para restar Bias a los lights y a los flats, y separarlo del 'main'.
 - [x] Cambiar la librería PyFits por astropy.io.fits.
 - [x] Actualizar comandos de PyFits que quedaron obsoletos.
-- [ ] Hacer un módulo para restar los DARKS.
-- [ ] Solucionar el problema de escalado a 32 bits. Las imágenes resultantes de cada proceso tendrían que volver a ser de 16 bits.
+- [x] Hacer un módulo para restar los DARKS.
 
 v0.15 "Respetuosa"
 - [x] Que los archivos de imagen se copien a otro directorio para no sobreescribir los FITS originales.
