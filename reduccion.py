@@ -86,6 +86,10 @@ def resta_master(lista,stacked_img):
 
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
 
+print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
+print("\nADVERTENCIA: Actualmente, PyReduct invierte los colores en la imagen.\n El autor no tiene idea de por qué pasa esto y no recomienda el reescalado.")
+confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de finalizar el proceso? (s/N)")
+
 
 # Voy al directorio donde están las imágenes copiadas
 os.chdir(home+"/pyreduc/procesado")
@@ -163,9 +167,14 @@ stbias=np.median(cubo_bias[0:numbias-1],axis=0)
 # Proceso de DARK.
 print("\nProcesando DARK. Por favor, aguarde...")
 
+# Primero, voy a restar un master-bias a los dark, formando un DARK-current.
+print("\nSustrayendo un master-bias a los dark. Aguarde...")
+resta_master(lista_dark, stbias)
+
+
 # Genero una matriz 3D de ceros
 cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
-# Copio los DARK a la matriz cúbica
+# Copio los DARK-current a la matriz cúbica
 nro=0
 for ii in lista_dark:
     ff=ft.open(ii)
@@ -199,7 +208,7 @@ resta_master(lista_flat, master_stack)
 
 
 # Proceso de FLATS. Voy a armar una matriz cúbica de los flats.
-# Nótese que los flats ya fueron corregidos con bias.
+# Nótese que los flats ya fueron corregidos con bias y dark-current.
 print("\nProcesando FLATS. Por favor, aguarde...")
 # Genero una matriz 3D de ceros
 cubo_flat=np.zeros((numflat,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
@@ -222,9 +231,6 @@ for ii in lista_flat:
 stflat=np.mean(cubo_flat[0:numflat-1],axis=0)/sum
 mflat=np.mean(stflat)
 
-
-print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
-confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de salir? (s/N)")
 
 
 # Divido las imágenes lights por el master-flat resultante.
