@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-# PyReduct
+# PyReduc
 # Programa de reducción de imágenes FITS
 # Autor: Carlos Mauricio Silva
-# Versión: 0.15
+# Versión: 0.17
 #
 # Licencia GNU GENERAL PUBLIC LICENSE
 # Leer archivo LICENSE que se distribuye con este programa.
@@ -21,10 +21,10 @@ from pathlib import Path
 
 # Presentación
 print("_______________________________________")
-print("PyReduct")
+print("PyReduc")
 print("\nPrograma de reducción de imágenes FITS")
 print("Autor: Carlos Mauricio Silva")
-print("Versión: 0.15")
+print("Versión: 0.17")
 print("_______________________________________")
 print("\nLas imágenes FITS deben estar en un directorio llamado")
 print('''"pyreduc/FITS/", dentro del directorio home.''')
@@ -74,7 +74,7 @@ def resta_master(lista,stacked_img):
         hdr=ff[0].header
         ff.close()
         img=img-stacked_img
-        hdr.add_comment("Procesado por DARK y BIAS con PyReduct")
+        hdr.add_comment("Procesado por DARK y BIAS con PyReduc")
         ft.writeto(ii,img,header=hdr,overwrite=True)  # overwrite=True va a sobreescribir cada archivo.
 
 
@@ -87,7 +87,7 @@ def resta_master(lista,stacked_img):
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
 
 print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
-print("\nADVERTENCIA: Actualmente, PyReduct invierte los colores en la imagen.\n El autor no tiene idea de por qué pasa esto y no recomienda el reescalado.")
+print("\nADVERTENCIA: Actualmente, PyReduc invierte los colores en la imagen.\n El autor no tiene idea de por qué pasa esto y no recomienda el reescalado.")
 confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de finalizar el proceso? (s/N)")
 
 
@@ -161,7 +161,6 @@ cubo_bias=np.sort(cubo_bias,axis=0)
 
 # Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
 stbias=np.median(cubo_bias[0:numbias-1],axis=0)
-
 
 
 # Proceso de DARK.
@@ -240,7 +239,7 @@ for ii in lista_lights:
     hdr=ff[0].header
     ff.close()
     img=img/stflat*mflat
-    hdr.add_comment("Procesado por FLATS con PyReduct")
+    hdr.add_comment("Procesado por FLATS con PyReduc")
     ft.writeto(ii,img,header=hdr,overwrite=True)
     # Si queremos pasar la imagen a 16 bits sin signo (No funciona muy bien):
     if(confirma_escalar=="s" or confirma_escalar=="S"):
