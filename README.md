@@ -15,7 +15,7 @@ basado en el tutorial [*"Cómo hacer una reducción básica de imágenes FITS co
 de Ricardo Gil-Hutton. Este tutorial empleaba la librería PyFits, que ya no se usa
 y ha sido reemplazada por astropy.io.fits para escribir PyReduc.
 La fórmula de reducción de imágenes científicas que se utiliza aquí fue tomada del curso
-[*"Introduction to Astronomical Image Analysis"* de  Matthew Craig, Juan Cabanela & Linda Winkler.](http://image-analysis.readthedocs.io/en/latest/index.html)
+[*"Introduction to Astronomical Image Analysis"*](http://image-analysis.readthedocs.io/en/latest/index.html) de  Matthew Craig, Juan Cabanela & Linda Winkler.
 _______________________________________________________
 
 ### INSTALACIÓN:
