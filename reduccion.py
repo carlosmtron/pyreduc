@@ -12,6 +12,8 @@
 # basado en el Tutorial "Cómo hacer una reducción básica de imágenes FITS con Python"
 # de Ricardo Gil-Hutton. Este tutorial estaba basado en la librería PyFits,
 # que ya no se usa y ha sido reemplazada por astropy.io.fits.
+# La fórmula de reducción de imágenes científicas que se utiliza aquí fue tomada del curso
+# "Introduction to Astronomical Image Analysis" de  Matthew Craig, Juan Cabanela & Linda Winkler.
 
 import numpy as np
 from astropy.io import fits as ft
