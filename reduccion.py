@@ -3,7 +3,7 @@
 # PyReduc
 # Programa de reducción de imágenes FITS
 # Autor: Carlos Mauricio Silva
-# Versión: 0.17
+# Versión: 0.2
 #
 # Licencia GNU GENERAL PUBLIC LICENSE
 # Leer archivo LICENSE que se distribuye con este programa.
@@ -20,6 +20,8 @@ from astropy.io import fits as ft
 import glob
 import os, shutil
 from pathlib import Path
+
+import registrado
 
 # Presentación
 print("_______________________________________")
@@ -252,6 +254,8 @@ for ii in lista_lights:
         ft.writeto(ii,hdu.data,header=hdu.header,overwrite=True)
 
    
-    
+# Alineación de imágenes:
+
+registrado.registra_lista(lista_lights)
 
 
