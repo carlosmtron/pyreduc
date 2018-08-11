@@ -3,7 +3,7 @@
 # PyReduc
 # Programa de reducción de imágenes FITS
 # Autor: Carlos Mauricio Silva
-# Versión: 0.2
+# Versión: 0.2.5
 #
 # Licencia GNU GENERAL PUBLIC LICENSE
 # Leer archivo LICENSE que se distribuye con este programa.
@@ -93,7 +93,7 @@ def resta_master(lista,stacked_img):
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
 
 print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
-print("\nADVERTENCIA: Actualmente, PyReduc invierte los colores en la imagen.\n El autor no tiene idea de por qué pasa esto y no recomienda el reescalado.")
+print("\nADVERTENCIA: Actualmente, PyReduc invierte los colores en la imagen.\n Por lo que el reescalado no se recomienda.")
 confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de finalizar el proceso? (s/N)")
 
 
@@ -133,7 +133,17 @@ for ii in lista_lights:
 print("\nTenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.")
 print("PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.")
 
-continuar=input("Presione Enter para continuar")
+continuar=input("Presione una tecla para continuar")
+
+print("\nAl final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?")
+print("1. Apilar promediando las imágenes")
+print("2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)")
+print("3. No apilar")
+rechazar_pixel = input("Ingrese 1, 2 o 3: ")
+while(rechazar_pixel not in ["1", "2", "3"]):
+    print("Opción inválida")
+    rechazar_pixel = input("Ingrese 1, 2 o 3: ")
+    
 
 # Guardo la cantidad de archivos de cada lista en una variable distinta:
 numflat=len(lista_flat)
@@ -259,14 +269,33 @@ for ii in lista_lights:
 
 registrado.registra_lista(lista_lights)
 
+salir="1"
+
 # Stacking o apilado de imágenes:
-
 lista_lights=glob.glob(prefijo+"*.fit") # Reconstruyo la lista de lights
-apilado.stacking(lista_lights)
+# Si el usuario pidio apilar, se apila, y si no, se sale del programa.
+if(rechazar_pixel=="1" or rechazar_pixel=="2"):
+    apilado.stacking(lista_lights, rechazar_pixel)
+else:
+    salir="2"
 
-# Visualización por pantalla de la imagen:
-visualizacion.visual("stacking.fit")
 
+while(salir=="1"):
+    print("¿Qué desea hacer?")
+    print("1: Ver la imagen resultante")
+    print("2: Salir")
+    salir=input("Ingrese 1 o 2: ")
+    if(salir=="1"):
+        # Visualización por pantalla de la imagen:
+        visualizacion.visual("stacking.fit")
+    elif(salir=="2"):
+        break
+    else:
+        print("Opción no válida")
+        salir="1"
 
+    
 print("Gracias por utilizar PyReduc")
 
+import gc
+gc.collect()

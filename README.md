@@ -19,10 +19,10 @@ La fórmula de reducción de imágenes científicas que se utiliza aquí fue tom
 _______________________________________________________
 
 ### INSTALACIÓN:
-Para correr este programa es necesario tener instalado Python 3 y las librerías científicas numpy y astropy.io.
+Para correr este programa es necesario tener instalado Python 3 y las librerías científicas numpy, astropy.io, scikit-image.
 Si está en un sistema operativo basado en Debian (como ubuntu) asegúrese de instalar las dependencias previamente:
 ```
-	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy python3-pip
+	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy python3-pip python3-skimage
 ```
 Este programa utiliza para alinear las imágenes, una vez calibradas, el programa [*Astroalign* de Martin Beroiz](https://github.com/toros-astro/astroalign). El mismo se puede instalar desde la Terminal:
 ```
