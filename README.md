@@ -33,7 +33,7 @@ Una vez instaladas las dependencias, extraiga el programa en el directorio "~/py
 
 Para ejecutar el programa, estando en la carpeta ~/pyreduc/ ejecute la orden:
 ```
-	./reduccion.py
+	./pyreduc.py
 ```
 
 ### IMPORTANTE:
