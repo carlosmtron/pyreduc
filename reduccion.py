@@ -21,14 +21,16 @@ import glob
 import os, shutil
 from pathlib import Path
 
+import apilado
 import registrado
+import visualizacion
 
 # Presentación
 print("_______________________________________")
 print("PyReduc")
 print("\nPrograma de reducción de imágenes FITS")
 print("Autor: Carlos Mauricio Silva")
-print("Versión: 0.17")
+print("Versión: 0.2.0")
 print("_______________________________________")
 print("\nLas imágenes FITS deben estar en un directorio llamado")
 print('''"pyreduc/FITS/", dentro del directorio home.''')
@@ -235,7 +237,6 @@ stflat=np.mean(cubo_flat[0:numflat-1],axis=0)/sum
 mflat=np.mean(stflat)
 
 
-
 # Divido las imágenes lights por el master-flat resultante.
 for ii in lista_lights:
     ff=ft.open(ii)
@@ -258,4 +259,14 @@ for ii in lista_lights:
 
 registrado.registra_lista(lista_lights)
 
+# Stacking o apilado de imágenes:
+
+lista_lights=glob.glob(prefijo+"*.fit") # Reconstruyo la lista de lights
+apilado.stacking(lista_lights)
+
+# Visualización por pantalla de la imagen:
+visualizacion.visual("stacking.fit")
+
+
+print("Gracias por utilizar PyReduc")
 
