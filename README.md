@@ -24,7 +24,7 @@ Si está en un sistema operativo basado en Debian (como ubuntu) asegúrese de in
 ```
 	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy python3-pip
 ```
-Este programa utiliza para alinear las imágenes, una vez calibradas, el programa [*Astroalign* de Martin Beroiz](https://github.com/toros-astro/astroalign). El mismo se puede instalar desde la Terminal
+Este programa utiliza para alinear las imágenes, una vez calibradas, el programa [*Astroalign* de Martin Beroiz](https://github.com/toros-astro/astroalign). El mismo se puede instalar desde la Terminal:
 ```
 	pip3 install astroalign
 ```
