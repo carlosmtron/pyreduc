@@ -3,7 +3,7 @@
 ## Programa de reducción de imágenes astronómicas FITS usando Python
 Autor: Carlos Mauricio Silva
 
-Versión: 0.17.1
+Versión: 0.2.1
 
 Licencia GNU GENERAL PUBLIC LICENSE
 

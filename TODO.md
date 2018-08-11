@@ -18,16 +18,16 @@ v0.2 "Crepuscular"
 - [x] Alinear las imágenes con algún algoritmo de terceros.
 - [x] Apilar las imágenes lights ya calibradas.
 
-v0.17 "Oscura"
+v0.1.7 "Oscura"
 - [x] Hacer un módulo para restar Bias a los lights y a los flats, y separarlo del 'main'.
 - [x] Cambiar la librería PyFits por astropy.io.fits.
 - [x] Actualizar comandos de PyFits que quedaron obsoletos.
 - [x] Hacer un módulo para restar los DARKS.
 
-v0.15 "Respetuosa"
+v0.1.5 "Respetuosa"
 - [x] Que los archivos de imagen se copien a otro directorio para no sobreescribir los FITS originales.
 
-v0.11 "Ordenada"
+v0.1.1 "Ordenada"
 - [x] Que los archivos de imagen estén en una carpeta separada del ejecutable.
 
 v0.1 "Original"
