@@ -22,10 +22,14 @@ _______________________________________________________
 Para correr este programa es necesario tener instalado Python 3 y las librerías científicas numpy y astropy.io.
 Si está en un sistema operativo basado en Debian (como ubuntu) asegúrese de instalar las dependencias previamente:
 ```
-	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy
+	sudo apt-get install python3 python3-numpy python3-scipy python3-astropy python3-pip
+```
+Este programa utiliza para alinear las imágenes, una vez calibradas, el programa [*Astroalign* de Martin Beroiz](https://github.com/toros-astro/astroalign). El mismo se puede instalar desde la Terminal:
+```
+	pip3 install astroalign
 ```
 
-Extraiga el programa en el directorio "~/pyreduc/", donde ~/ representa su directorio home.
+Una vez instaladas las dependencias, extraiga el programa en el directorio "~/pyreduc/", donde ~/ representa su directorio home.
 
 Para ejecutar el programa, estando en la carpeta ~/pyreduc/ ejecute la orden:
 ```
@@ -56,4 +60,4 @@ Nota: *En este caso también puede ingresar "R", puesto que es el único prefijo
 
 
 *Por favor, note que este programa no convierte imágenes RAW a FITS (¿Quizás en una próxima versión?).*
-
+*Por ahora el programa funciona bien con imágenes monocromáticas. RGB/RGGB/otras yerbas, quizás en un futuro...*

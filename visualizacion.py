@@ -79,6 +79,7 @@ def visual(imagen):
     n = input("Ingrese 1 o 2: ")
     modo_histograma(n, image_data)
 
+    
 #Las siguientes líneas sirven para probar el Script sin necesidad de ejecutar el main.
 if __name__ == '__main__':
     import os
