@@ -39,7 +39,7 @@ Para ejecutar el programa, estando en la carpeta ~/pyreduc/ ejecute la orden:
 
 ### IMPORTANTE:
 Las imágenes FITS deben estar en un directorio llamado "~/pyreduc/FITS/".
-- Los prefijos de los archivos deben seguir las siguientes regla:
+- Los prefijos de los archivos deben seguir las siguientes reglas:
   - FLATS: "flat*"
   - DARKS: "dark*"
   - BIAS: "bias*"
