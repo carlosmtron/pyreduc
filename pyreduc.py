@@ -92,11 +92,6 @@ def resta_master(lista,stacked_img):
 
 copia_de_imagenes() # Llamo a la función que me backupeará las imágenes
 
-print("Algunos softwares de fotometría, como IRIS, trabajan solo con imágenes de 16 o 32 bits.")
-print("\nADVERTENCIA: Actualmente, PyReduc invierte los colores en la imagen.\n Por lo que el reescalado no se recomienda.")
-confirma_escalar=input("¿Desea reescalar las imágenes a 16 bits antes de finalizar el proceso? (s/N)")
-
-
 # Voy al directorio donde están las imágenes copiadas
 os.chdir(home+"/pyreduc/procesado")
 
@@ -256,13 +251,6 @@ for ii in lista_lights:
     img=img/stflat*mflat
     hdr.add_comment("Procesado por FLATS con PyReduc")
     ft.writeto(ii,img,header=hdr,overwrite=True)
-    # Si queremos pasar la imagen a 16 bits sin signo (No funciona muy bien):
-    if(confirma_escalar=="s" or confirma_escalar=="S"):
-        ff=ft.open(ii)
-        hdu=ff[0]
-        hdu.scale('uint16')
-        ff.close()
-        ft.writeto(ii,hdu.data,header=hdu.header,overwrite=True)
 
    
 # Alineación de imágenes:
