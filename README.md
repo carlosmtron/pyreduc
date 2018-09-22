@@ -9,6 +9,7 @@ Licencia GNU GENERAL PUBLIC LICENSE
 
 Leer archivo LICENSE que se distribuye con este programa.
 ________________________________________________________
+[![astropy](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat)](http://www.astropy.org/)
 
 Parte del código de calibración con Darks/Bias/Flats está
 basado en el tutorial [*"Cómo hacer una reducción básica de imágenes FITS con Python"*](https://freeshell.de/~rgh/arch/python/python-red-basica.pdf)

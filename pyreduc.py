@@ -182,14 +182,14 @@ stbias=np.median(cubo_bias[0:numbias-1],axis=0)
 # Proceso de DARK.
 print("\nProcesando DARK. Por favor, aguarde...")
 
-# Primero, voy a restar un master-bias a los dark, formando un DARK-current.
+# Primero, voy a restar un master-bias a los dark, para formar un DARK-current.
 print("\nSustrayendo un master-bias a los dark. Aguarde...")
 resta_master(lista_dark, stbias)
 
 
 # Genero una matriz 3D de ceros
 cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
-# Copio los DARK-current a la matriz cúbica
+# Copio los pre-DARK-current a la matriz cúbica
 nro=0
 for ii in lista_dark:
     ff=ft.open(ii)
@@ -207,7 +207,7 @@ cubo_dark=np.sort(cubo_dark,axis=0)
 stdark=np.median(cubo_dark[0:numbias-1],axis=0)
 
 
-# Ahora voy a crear una imagen que es la suma de DARKs y BIAS
+# Ahora voy a crear una imagen que es la suma de DARK-current escalado y BIAS
 # para corregir los lights
 master_stack = stbias + stdark/exp_dark*exp_lights
 
