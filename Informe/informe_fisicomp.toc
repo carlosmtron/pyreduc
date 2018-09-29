@@ -1,0 +1,10 @@
+\babel@toc {spanish}{}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n te\IeC {\'o}rica}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Motivaci\IeC {\'o}n: Fotometr\IeC {\'\i }a DSLR}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}El formato FITS}{2}{subsection.1.2}
+\contentsline {paragraph}{Cabecera FITS (Header)}{2}{section*.3}
+\contentsline {paragraph}{Datos FITS}{4}{section*.4}
+\contentsline {subsection}{\numberline {1.3}Reducci\IeC {\'o}n de im\IeC {\'a}genes: Tomas Dark, Bias y Flat}{5}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}Tomas Bias}{5}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}Tomas Dark}{5}{subsubsection.1.3.2}
+\contentsline {subsubsection}{\numberline {1.3.3}Tomas Flat}{6}{subsubsection.1.3.3}
