@@ -175,23 +175,6 @@ exp_dark=ft.getval(lista_dark[0], 'exptime')
 # Proceso de BIAS. Voy a armar una matriz cúbica de los bias.
 print("\nProcesando BIAS. Por favor, aguarde...")
 
-# Genero una matriz 3D de ceros
-# cubo_bias=np.zeros((numbias,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
-# Copio los BIAS a la matriz cúbica
-# nro=0
-# for ii in lista_bias:
-#    ff=ft.open(ii)
-#    img=ff[0].data
-#    hdr=ff[0].header
-#    ff.close()
-#    cubo_bias[nro,:,:]=np.copy(img)
-#    nro+=1
-
-# Ordeno los pixeles de menor a mayor a lo largo del primer eje.
-# cubo_bias=np.sort(cubo_bias,axis=0)
-
-# Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
-# stbias=np.median(cubo_bias[0:numbias-1],axis=0)
 stbias = mediana_calib(lista_bias, numbias)
 
 
@@ -203,24 +186,6 @@ print("\nSustrayendo un master-bias a los dark. Aguarde...")
 resta_master(lista_dark, stbias)
 
 # Ahora realizo el apilado para generar la imagen Dark-current
-# Genero una matriz 3D de ceros
-# cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
-# Copio los pre-DARK-current a la matriz cúbica
-# nro=0
-# for ii in lista_dark:
-#    ff=ft.open(ii)
-#    img=ff[0].data
-#    hdr=ff[0].header
-#    ff.close()
-#    cubo_dark[nro,:,:]=np.copy(img)
-#    nro+=1
-    
-
-# Ordeno los pixeles de menor a mayor a lo largo del primer eje.
-# cubo_dark=np.sort(cubo_dark,axis=0)
-
-# Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
-# stdark=np.median(cubo_dark[0:numbias-1],axis=0)
 stdark = mediana_calib(lista_dark, numdark)
 
 

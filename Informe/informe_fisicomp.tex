@@ -288,17 +288,51 @@ Una vez hecho esto, comienza el proceso de reducción propiamente dicho. Este pr
 pero en PyReduc se ha  reemplazado por {\tt astropy.io.fits}.
 
 
- Para realizar el procesado de Bias se sigue el método descripto a continuación:
+ Para realizar el procesado de Bias se creó una función llamada \texttt{mediana\_calib}, cuyos argumentos son la lista\footnote{Aquí {\it lista} se usa en el sentido del objeto Python de tipo lista.} de imágenes a procesar y la cantidad de estas imágenes. La función creada ejecuta el procedimiento descripto a continuación:
  \begin{enumerate}
  \item Primero se arma un arreglo tridimensional en donde se ponen todas las imágenes Bias secuencialmente, de manera que el elemento $a_{ijk}$ del arreglo es el pixel de coordenadas $(j,k)$ de la {\it i-ésima} imagen Bias.
  \item Luego se ordenan los pixeles de la secuencia de imágenes de menor a mayor a lo largo del primer eje. Para clarificar esto, se toman los pixeles de coordenadas fijas $(j,k)$ de cada imagen de la secuencia y se los ordena de mayor a menor en el arreglo tridimensional. Así, la matriz que se obtendría de fijar el índice $i=0$\footnote{A diferencia del lenguaje FORTRAN, en el lenguaje Python los índices de los arreglos comienzan en 0.} estaría formada por los pixeles de menor valor de todas las imágenes. Este ordenamiento se realiza con la función \texttt{sort} de la librería \texttt{NumPy}.
- \item Finalmente se calcula la mediana de todos los pixeles de coordenadas $(i,j)$ fijas, pero descartando los pixeles de valor más alto. Este cálculo de la mediana se realiza con la función \texttt{median} de la librería \texttt{NumPy}.
+ \item Finalmente se calcula la mediana de todos los pixeles de coordenadas $(i,j)$ fijas, pero descartando los pixeles de valor más alto. La razón de este descarte es eliminar posibles defectos como el que se ve en la Figura~\ref{fig:dark}. Este cálculo de la mediana se realiza con la función \texttt{median} de la librería \texttt{NumPy}.
  \end{enumerate}
+
  
 
  La imagen así obtenida constituye el Master Bias, el cual se guarda en memoria, en un array de \texttt{NumPy} de nombre \texttt{stbias}. A continuación, se sigue con el procesado de tomas Dark. Lo primero que se hace es restarle a todas las tomas Dark el Master Bias, formando así tomas pre-Dark-current. Para este fin, se creó una función llamada \texttt{resta\_master} cuyos argumentos son la lista de imágenes a procesar y la imagen Master que se les va a restar. Cabe destacar que esta función sobreescribe las imágenes de la lista que se le pasa como argumento, reemplazándolas por las nuevas imágenes pre-Dark-current.
 
- Una vez que se tienen las imágenes pre-Dark-current, se realiza el procedimiento de obtención de la mediana 
+ Una vez que se tienen las imágenes pre-Dark-current, se utiliza la función \texttt{mediana\_calib} para apilar estas tomas utilizando la mediana y descartando los valores de los pixeles más altos. La imagen así obtenida constituye la toma Dark-current buscada y se guarda en memoria en el arreglo \texttt{stdark}
+
+ Para realizar la calibración utilizando la fórmula (\ref{eq:reduc}), primero se crea una imagen que es la suma de la Master Dark y de la Dark-current escalado con el tiempo de exposición de las tomas científicas. Esta imagen, que en el programa se guarda en memoria en el arreglo de \texttt{NumPy} \texttt{master\_stack}, obedece a la siguiente expresión:
+ \begin{equation}
+   \label{eq:master}
+   \mbox{master\_stack} = \mbox{Master Bias} + \frac{exp_{dark}}{exp_{lights}}\ \mbox{Dark-current}
+ \end{equation}
+ en donde $exp_{dark}$ es el tiempo de exposición de las tomas dark y $exp_{lights}$ es el tiempo de exposición de las tomas científicas. Aquí es importante mencionar que en este programa estamos suponiendo que todas las tomas Dark tienen el mismo tiempo de exposición entre sí, y que lo mismo ocurre con las tomas científicas.
+
+ Una vez construida la toma de calibración \texttt{master\_stack}, se la resta a todas las tomas científicas, recurriendo nuevamente a la función \texttt{resta\_master}.
+
+ A continuación, se calibran todas las tomas Flat con una nueva imagen \texttt{master\_stack}, construida utilizando la expresión (\ref{eq:master}), pero reemplazando el tiempo de exposición de las tomas científicas por el de las tomas Flat.
+
+ Para apilar las tomas Flat ya calibradas, el proceso es ligeramente diferente al de los Dark-current y los Bias, ya que estas tomas usan iluminación artificial. Como es posible que los niveles de iluminación de cada toma sean diferentes, se le da peso a cada imagen con su mediana. Se crea un arreglo tridimensional de imágenes Flat tal como se hacía para los Bias y los Dark, pero con dicho peso. Luego se calcula una nueva imagen promediando los pixeles homólogos de cada imagen y despreciando los valores más altos, pero se normaliza el resultado con la suma de las medianas de cada imagen. Así se obtiene una imagen Master Flat de buena relación señal/ruido, que se puede usar para hacer la corrección de las
+imágenes científicas. Esto se realiza dividiendo por el Master Flat y reescalando con su media para no modificar el valor medio
+de cada imagen.
+
+De esta manera, la calibración basada en la fórmula de reducción (\ref{eq:reduc}) queda completada.
+
+Antes de proceder al apilado de las imágenes, es necesario alinearlas. Para este proceso se ha escrito un módulo llamado \texttt{registrado} que es en realidad un script que utiliza las herramientas de \texttt{astroalign} para alinear las imágenes previamente calibradas. Astroalign es un paquete que alinea dos imágenes astronómicas buscando asterismos de tres puntos (tres estrellas) en común entre las dos imágenes, y
+realizando una transformación afín entre ellas. El autor del paquete astroalign es Martin Beroiz \cite{astroalign}. Dado que el proceso de alineación o registro de imágenes está fuera del alcance de este informe, solo se mencionará que la función \texttt{registra\_lista}, dentro del módulo registrado, recibe como argumento la lista de imágenes a registrar y sobreescribe las imágenes de esa lista con nuevas versiones a las que se le aplicaron las transformaciones necesarias para un posterior apilado exitoso.
+
+Una vez finalizado el alineado, el programa está listo para realizar el apilado de las tomas científicas. Para ello, se escribió un módulo llamado \texttt{apilado}, que tiene dos opciones:
+\begin{enumerate}
+\item Apilado realizando el promedio de todos los pixeles homólogos de cada imagen.
+\item Apilado con descarte de valores extremos (``pixel rejection'').
+\end{enumerate}
+
+
+
+
+
+
+ 
 
  
 
@@ -317,7 +351,8 @@ pero en PyReduc se ha  reemplazado por {\tt astropy.io.fits}.
 \bibitem{craig} Matthew Craig, Juan Cabanela, Linda Winkler: {\it ``Introduction to Astronomical Image Analysis''}, 2014. En Internet: \url{https://image-analysis.readthedocs.io}
 \bibitem{brown} Lisa G. Brown: {\it ``Image Registration Techniques''}, ACM Computmg Surveys, Vol 24, No. 4, 1992. \url{https://doi.org/10.1145/146370.146374}
 \bibitem{astropy} Astropy Collaboration: {\it ``The Astropy Project: Building an Open-science Project and Status of the v2.0 Core Package''}, The Astronomical Journal, Volume 156, Issue 3, article id. 123, 19 pp., 2018. \url{https://doi.org/10.3847/1538-3881/aabc4f}
-\bibitem{aydin}  M. Emre Aydin: ``{\it cr2fits v2}'', Version v2.1.0, 2017, May 21, Zenodo. \url{http://doi.org/10.5281/zenodo.581722}
+\bibitem{aydin}  M. Emre Aydin: {\it ``cr2fits v2''}, Version v2.1.0, 2017, May 21, Zenodo. \url{http://doi.org/10.5281/zenodo.581722}
+\bibitem{astroalign} Martin Beroiz: {\it ``toros-astro/astroalign''}, Version v1.0.3, 2018, May 18. Zenodo. \url{http://doi.org/10.5281/zenodo.1249048}
 \end{thebibliography}
 
 
