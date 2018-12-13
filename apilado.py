@@ -23,7 +23,7 @@ def pixel_rejection(cubo, m):
 
 def no_rejection(cubo):
     # Creo una nueva imagen con el valor de la media.
-    stack = np.mean(cubo[0:cantidad],axis=0)
+    stack = np.mean(cubo,axis=0)
     return np.array(stack)
 
 
@@ -50,7 +50,7 @@ def stacking(lista, rechazar):
     print("Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit")
 
 
-#Las siguientes líneas sirven para probar el Script sin necesidad de ejecutar el main.
+# Las siguientes líneas sirven para probar el Script sin necesidad de ejecutar el main.
 if __name__ == '__main__':
     import os
     from pathlib import Path

@@ -72,7 +72,27 @@ def copia_de_imagenes():
             print('Error en la copia')
 
 
+def mediana_calib(listaimg,numimg):
+    # Genero una matriz 3D de ceros
+    cubo_nuevo=np.zeros((numimg,ft.getval(listaimg[0],'naxis2'),ft.getval(listaimg[0],'naxis1')),dtype=float)
+    # Copio las tomas de calibración a la matriz cúbica
+    nro=0
+    for ii in listaimg:
+        ff=ft.open(ii)
+        img=ff[0].data
+        hdr=ff[0].header
+        ff.close()
+        cubo_nuevo[nro,:,:]=np.copy(img)
+        nro+=1
+        
+    # Ordeno los pixeles de menor a mayor a lo largo del primer eje.
+    cubo_nuevo=np.sort(cubo_nuevo,axis=0)
+    
+    # Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
+    return np.median(cubo_nuevo[0:numbias-1],axis=0)
 
+
+            
 def resta_master(lista,stacked_img):
     for ii in lista:
         ff=ft.open(ii)
@@ -156,50 +176,52 @@ exp_dark=ft.getval(lista_dark[0], 'exptime')
 print("\nProcesando BIAS. Por favor, aguarde...")
 
 # Genero una matriz 3D de ceros
-cubo_bias=np.zeros((numbias,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
+# cubo_bias=np.zeros((numbias,ft.getval(lista_bias[0],'naxis2'),ft.getval(lista_bias[0],'naxis1')),dtype=float)
 # Copio los BIAS a la matriz cúbica
-nro=0
-for ii in lista_bias:
-    ff=ft.open(ii)
-    img=ff[0].data
-    hdr=ff[0].header
-    ff.close()
-    cubo_bias[nro,:,:]=np.copy(img)
-    nro+=1
+# nro=0
+# for ii in lista_bias:
+#    ff=ft.open(ii)
+#    img=ff[0].data
+#    hdr=ff[0].header
+#    ff.close()
+#    cubo_bias[nro,:,:]=np.copy(img)
+#    nro+=1
 
-# Ordeno los pixeles de mayor a menor a lo largo del primer eje.
-cubo_bias=np.sort(cubo_bias,axis=0)
+# Ordeno los pixeles de menor a mayor a lo largo del primer eje.
+# cubo_bias=np.sort(cubo_bias,axis=0)
 
 # Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
-stbias=np.median(cubo_bias[0:numbias-1],axis=0)
+# stbias=np.median(cubo_bias[0:numbias-1],axis=0)
+stbias = mediana_calib(lista_bias, numbias)
 
 
 # Proceso de DARK.
 print("\nProcesando DARK. Por favor, aguarde...")
 
-# Primero, voy a restar un master-bias a los dark, para formar un DARK-current.
+# Primero, voy a restar un master-bias a los dark, para formar una lista de pre-DARK-current.
 print("\nSustrayendo un master-bias a los dark. Aguarde...")
 resta_master(lista_dark, stbias)
 
-
+# Ahora realizo el apilado para generar la imagen Dark-current
 # Genero una matriz 3D de ceros
-cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
+# cubo_dark=np.zeros((numdark,ft.getval(lista_dark[0],'naxis2'),ft.getval(lista_dark[0],'naxis1')),dtype=float)
 # Copio los pre-DARK-current a la matriz cúbica
-nro=0
-for ii in lista_dark:
-    ff=ft.open(ii)
-    img=ff[0].data
-    hdr=ff[0].header
-    ff.close()
-    cubo_dark[nro,:,:]=np.copy(img)
-    nro+=1
+# nro=0
+# for ii in lista_dark:
+#    ff=ft.open(ii)
+#    img=ff[0].data
+#    hdr=ff[0].header
+#    ff.close()
+#    cubo_dark[nro,:,:]=np.copy(img)
+#    nro+=1
     
 
-# Ordeno los pixeles de mayor a menor a lo largo del primer eje.
-cubo_dark=np.sort(cubo_dark,axis=0)
+# Ordeno los pixeles de menor a mayor a lo largo del primer eje.
+# cubo_dark=np.sort(cubo_dark,axis=0)
 
 # Creo una nueva imagen con el valor de la mediana, despreciando el valor más alto de cada pixel.
-stdark=np.median(cubo_dark[0:numbias-1],axis=0)
+# stdark=np.median(cubo_dark[0:numbias-1],axis=0)
+stdark = mediana_calib(lista_dark, numdark)
 
 
 # Ahora voy a crear una imagen que es la suma de DARK-current escalado y BIAS
@@ -286,4 +308,5 @@ while(salir=="1"):
 print("Gracias por utilizar PyReduc")
 
 import gc
+# Saco la basura y se la lleva el camión recolector
 gc.collect()

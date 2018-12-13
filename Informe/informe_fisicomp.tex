@@ -213,7 +213,7 @@ Una de las correcciones que se pueden hacer a nuestras tomas científicas es la 
   \caption{\label{fig:dark} Recorte y ampliación de una toma Dark realizada con una DSLR Canon EOS 700D en un telescopio Maksutov-Cassegrain de 102 mm f/12,7. La imagen RAW está debayerizada y el contraste está levemente realzado. La flecha blanca muestra un defecto que no vuelve a aparecer en el resto de imágenes Dark de la serie y se puede deber, por ejemplo, al efecto de rayos cósmicos impactando en el sensor. Si este efecto apareciera en toda la serie de imágenes, entonces podríamos decir que es un defecto de lectura del sensor, conocido como ``hot pixel''.}
 \end{figure}
 
-Con el conjunto de tomas Dark, usualmente se hace un apilado promediando los valores de los pixeles homólogos de cada imagen, o bien tomando la mediana de dichos valores.  Sin embargo, como se decía en la sección \ref{sec:bias}, estas tomas también tendrán ruido electrónico y de lectura. Para quitar esta contribución, se le puede restar a cada toma Dark un Master Bias. Este último proceso es especialmente importante si las tomas Dark no tienen el mismo tiempo de exposición que las tomas científicas. Finalmente se deben apilar las imágenes Dark corregidas utilizando el promedio o la mediana de los pixeles, obteniendo así una imagen que se llama \textbf{``Dark current''}. Antes de restar la imagen Dark current a las tomas científicas, se las debe escalar por un factor igual al cociente entre el tiempo de exposición de las tomas científicas y de las tomas Dark.
+Con el conjunto de tomas Dark, usualmente se hace un apilado promediando los valores de los pixeles homólogos de cada imagen, o bien tomando la mediana de dichos valores.  Sin embargo, como se decía en la sección \ref{sec:bias}, estas tomas también tendrán ruido electrónico y de lectura. Para quitar esta contribución, se le puede restar a cada toma Dark un Master Bias. Este último proceso es especialmente importante si las tomas Dark no tienen el mismo tiempo de exposición que las tomas científicas. Finalmente se deben apilar las imágenes Dark corregidas utilizando el promedio o la mediana de los pixeles, obteniendo así una imagen que se llama \textbf{``Dark-current''}. Antes de restar la imagen Dark-current a las tomas científicas, se las debe escalar por un factor igual al cociente entre el tiempo de exposición de las tomas científicas y de las tomas Dark.
 
 \subsubsection{Tomas Flat}
 Los telescopios y las lentes comerciales usualmente no iluminan el sensor en forma homogénea. Habitualmente, la luz se distribuye en mayor cantidad en el centro del sensor que en los bordes. Este defecto en las imágenes se llama viñeteo. Más aún, las superficies ópticas de los telescopios y lentes suelen acumular polvo (y el sensor de la cámara también). A esto hay que agregarle que el propio sensor no tiene la misma respuesta en todos sus pixeles a un mismo estímulo lumínico. 
@@ -227,16 +227,19 @@ La Figura~\ref{fig:flat} muestra una toma flat individual con el contraste realz
 
 Para fabricar un Master Flat, se deben sacar varias tomas apuntando el objetivo a una superficie uniformemente iluminada por luz blanca, sin llegar a saturar el sensor. Una manera simple y moderna de hacerlo es apuntar el telescopio a un monitor LCD (sin remover la cámara de su posición en el tubo). Las cámaras DSLR comerciales tienen un modo AV en el que la cámara calcula el tiempo de exposición automáticamente. Este modo usualmente proporciona Flats muy adecuados. La configuración ISO en el caso de las tomas Flats debe ser menor o igual a la de las tomas científicas.
 
-Una vez que se tienen las tomas Flat, se les debe quitar el ruido de lectura y térmico restándole los Master Bias y Dark current (escalado con el tiempo de exposición de los Flats). Luego se las apila utilizando la mediana, siendo el resultado obtenido el Master Flat. Antes de dividir las tomas científicas por el master Flat, se le debe realizar un escalado o normalización, ya que es posible que los niveles de iluminación sean diferentes para cada imagen. Una opción posible sería darle peso a cada imagen Flat usando su mediana. Se promedian todas las imagenes Flats utilizando esos pesos, y se divide esta imagen resultante por el promedio de todos sus pixeles. La imagen Master Flat resultante está, entonces, reducida y normalizada.
+Una vez que se tienen las tomas Flat, se les debe quitar el ruido de lectura y térmico restándole los Master Bias y Dark-current (escalado con el tiempo de exposición de los Flats). Luego se las apila utilizando la mediana, siendo el resultado obtenido el Master Flat. Antes de dividir las tomas científicas por el Master Flat, se le debe realizar un escalado o normalización, ya que es posible que los niveles de iluminación sean diferentes para cada imagen. Una opción posible sería darle peso a cada imagen Flat usando su mediana. Se promedian todas las imagenes Flats utilizando esos pesos, y se divide esta imagen resultante por el promedio de todos sus pixeles. La imagen Master Flat resultante está, entonces, reducida y normalizada.
 
 
-Las correcciones explicadas en toda esta sección \ref{sec:tomas} se pueden condensar en la ecuación~(\ref{eq:reduc}).
+Las correcciones explicadas en toda esta sección \ref{sec:tomas} se pueden condensar en la fórmula~(\ref{eq:reduc}).
 
 
 \begin{equation}
   \mbox{Científicas}_{reducidas} = \frac{\mbox{Científicas}_{raw} - \mbox{Master~Bias}-\mbox{Dark~current}_{escalada}}{\mbox{Master~Flat}_{reducida,~normalizada}}
   \label{eq:reduc}
 \end{equation}
+
+ Esta fórmula de reducción de imágenes científicas que se utiliza aquí fue tomada del curso
+ ``Introduction to Astronomical Image Analysis'' de  Matthew Craig, Juan Cabanela y Linda Winkler \cite{craig}.
 
 Una vez que la serie de imágenes científicas fueron reducidas, se puede proceder a realizar las mediciones fotométricas. Sin embargo, si se busca realizar una medición precisa de un objeto muy débil, se puede aumentar aún más la SNR. Esto se logra realizando un apilado (en inglés \textit{stacking}) de un conjunto de tomas científicas reducidas de la misma región del cielo. Para este apilado existen diferentes algoritmos. El más sencillo consiste en promediar los pixeles homólogos de cada imagen, como se hacía con las tomas de calibración. Otros algoritmos consisten en realizar ese promedio, pero descartando valores extremos o reemplazándolos por valores que  se encuentren dentro de ciertos percentiles.
 
@@ -283,10 +286,25 @@ La cantidad de archivos de cada lista se guarda en una variable distinta. Ademá
 
 Una vez hecho esto, comienza el proceso de reducción propiamente dicho. Este proceso está basado en un trabajo de Ricardo Gil-Hutton \cite{gil-hutton}. Este tutorial estaba basado en la librería \texttt{PyFits},
 pero en PyReduc se ha  reemplazado por {\tt astropy.io.fits}.
- La fórmula de reducción de imágenes científicas que se utiliza aquí fue tomada del curso
- ``Introduction to Astronomical Image Analysis'' de  Matthew Craig, Juan Cabanela y Linda Winkler \cite{craig}.
 
- Para realizar el procesado de Bias se sigue el método descripto a continuación.
+
+ Para realizar el procesado de Bias se sigue el método descripto a continuación:
+ \begin{enumerate}
+ \item Primero se arma un arreglo tridimensional en donde se ponen todas las imágenes Bias secuencialmente, de manera que el elemento $a_{ijk}$ del arreglo es el pixel de coordenadas $(j,k)$ de la {\it i-ésima} imagen Bias.
+ \item Luego se ordenan los pixeles de la secuencia de imágenes de menor a mayor a lo largo del primer eje. Para clarificar esto, se toman los pixeles de coordenadas fijas $(j,k)$ de cada imagen de la secuencia y se los ordena de mayor a menor en el arreglo tridimensional. Así, la matriz que se obtendría de fijar el índice $i=0$\footnote{A diferencia del lenguaje FORTRAN, en el lenguaje Python los índices de los arreglos comienzan en 0.} estaría formada por los pixeles de menor valor de todas las imágenes. Este ordenamiento se realiza con la función \texttt{sort} de la librería \texttt{NumPy}.
+ \item Finalmente se calcula la mediana de todos los pixeles de coordenadas $(i,j)$ fijas, pero descartando los pixeles de valor más alto. Este cálculo de la mediana se realiza con la función \texttt{median} de la librería \texttt{NumPy}.
+ \end{enumerate}
+ 
+
+ La imagen así obtenida constituye el Master Bias, el cual se guarda en memoria, en un array de \texttt{NumPy} de nombre \texttt{stbias}. A continuación, se sigue con el procesado de tomas Dark. Lo primero que se hace es restarle a todas las tomas Dark el Master Bias, formando así tomas pre-Dark-current. Para este fin, se creó una función llamada \texttt{resta\_master} cuyos argumentos son la lista de imágenes a procesar y la imagen Master que se les va a restar. Cabe destacar que esta función sobreescribe las imágenes de la lista que se le pasa como argumento, reemplazándolas por las nuevas imágenes pre-Dark-current.
+
+ Una vez que se tienen las imágenes pre-Dark-current, se realiza el procedimiento de obtención de la mediana 
+
+ 
+
+
+
+   
 
 \begin{thebibliography}{100}
 \bibitem{aavso} American Association of Variable Star Observers: {\it ``Manual de Observación DSLR de AAVSO''}, Versión 1.1 en Español, 2015. En Internet: \url{https://www.aavso.org/dslr-observing-manual}

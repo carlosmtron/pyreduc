@@ -76,7 +76,7 @@ def visual(imagen):
     print("1. Recorte Manual del histograma")
     print("2. Ecualización automática del histograma")
     print("3. Recorte automático entre los percentiles 2 y 98")
-    n = input("Ingrese 1 o 2: ")
+    n = input("Ingrese 1, 2 o 3: ")
     modo_histograma(n, image_data)
 
     
