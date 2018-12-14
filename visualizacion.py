@@ -87,4 +87,5 @@ if __name__ == '__main__':
     
     home = str(Path.home())
     os.chdir(home+"/pyreduc/procesado")
-    visual("stacking.fit")
+    imagen = input("Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.\n")
+    visual(imagen)

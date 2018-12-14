@@ -6,8 +6,75 @@
 \usepackage{fancyhdr}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
 \usepackage[hidelinks]{hyperref}
 \usepackage[font=small, labelfont=bf]{caption} 
+
+
+
+\usepackage{listings}
+\lstset{ frame=Ltb,
+framerule=0pt,
+aboveskip=0.5cm,
+framextopmargin=3pt,
+framexbottommargin=3pt,
+framexleftmargin=0.4cm,
+framesep=0pt,
+rulesep=.4pt,
+backgroundcolor=\color{gray97},
+rulesepcolor=\color{black},
+%
+stringstyle=\ttfamily,
+showstringspaces = false,
+basicstyle=\small\ttfamily,
+commentstyle=\color{gray45},
+keywordstyle=\bfseries\color{deepblue},
+emphstyle=\ttb\color{deepred}, 
+stringstyle=\color{deepgreen},
+%
+numbers=left,
+numbersep=15pt,
+numberstyle=\tiny,
+numberfirstline = false,
+breaklines=true,
+}
+
+%Para que listings reconozca los caracteres UTF-8
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+{basicstyle=\scriptsize\bf\ttfamily,
+backgroundcolor=\color{gray75},
+}
+
+\lstdefinestyle{python}
+{language=Python,
+}
+
+
 
 \topmargin=-1cm
 \oddsidemargin=0cm
@@ -19,7 +86,7 @@
 \begin{document}
 
 \renewcommand{\tablename}{Tabla}
-\renewcommand{\refname}{Referencias y Bibliografía}
+\renewcommand{\refname}{Bibliografía}
 
 
 
@@ -59,12 +126,12 @@ Departamento de Física -- ECEN\\}
 Carlos Mauricio Silva\\
 
 \vspace*{0.5cm}
-\small{Agosto de 2018}
+\small{\today}
 
 \vspace*{3cm}
 
 \begin{abstract}
-  En este trabajo se presenta el desarrollo del software PyReduc, cuyo objetivo es reducir imágenes astronómicas en formato FITS. Se comentan los fundamentos de la reducción de imágenes y se explican las funciones del programa.
+  En este trabajo se presenta el desarrollo del software PyReduc, cuyo objetivo es reducir y apilar imágenes astronómicas en formato FITS. Se comentan los fundamentos de la reducción de imágenes y se explican las funciones principales del programa.
 \end{abstract}
 
 \vspace{5cm}
@@ -222,7 +289,7 @@ La Figura~\ref{fig:flat} muestra una toma flat individual con el contraste realz
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=\textwidth]{img/flatx.png}
-  \caption{\label{fig:flat} Toma Flat realizada con una DSLR Canon EOS 700D en un telescopio Maksutov-Cassegrain de 102 mm f/12,7. Se muestra solo el canal verde de la imagen. Se observa en las esquinas de la imagen el efecto de viñeteo debido a una iluminación no homogénea del sensor. También arriba a la izquierda de la imagen se ve una mancha circular que se debe a un resto de polvo en el tren óptico del instrumento.}
+  \caption{\label{fig:flat} Toma Flat realizada con una DSLR Canon EOS 700D en un telescopio Maksutov-Cassegrain de 102 mm f/12,7.  Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma. Se muestra solo el canal verde de la imagen. Se observa en las esquinas de la imagen el efecto de viñeteo debido a una iluminación no homogénea del sensor. También arriba a la izquierda de la imagen se ve una mancha circular que se debe a un resto de polvo en el tren óptico del instrumento.}
 \end{figure}
 
 Para fabricar un Master Flat, se deben sacar varias tomas apuntando el objetivo a una superficie uniformemente iluminada por luz blanca, sin llegar a saturar el sensor. Una manera simple y moderna de hacerlo es apuntar el telescopio a un monitor LCD (sin remover la cámara de su posición en el tubo). Las cámaras DSLR comerciales tienen un modo AV en el que la cámara calcula el tiempo de exposición automáticamente. Este modo usualmente proporciona Flats muy adecuados. La configuración ISO en el caso de las tomas Flats debe ser menor o igual a la de las tomas científicas.
@@ -291,7 +358,7 @@ pero en PyReduc se ha  reemplazado por {\tt astropy.io.fits}.
  Para realizar el procesado de Bias se creó una función llamada \texttt{mediana\_calib}, cuyos argumentos son la lista\footnote{Aquí {\it lista} se usa en el sentido del objeto Python de tipo lista.} de imágenes a procesar y la cantidad de estas imágenes. La función creada ejecuta el procedimiento descripto a continuación:
  \begin{enumerate}
  \item Primero se arma un arreglo tridimensional en donde se ponen todas las imágenes Bias secuencialmente, de manera que el elemento $a_{ijk}$ del arreglo es el pixel de coordenadas $(j,k)$ de la {\it i-ésima} imagen Bias.
- \item Luego se ordenan los pixeles de la secuencia de imágenes de menor a mayor a lo largo del primer eje. Para clarificar esto, se toman los pixeles de coordenadas fijas $(j,k)$ de cada imagen de la secuencia y se los ordena de mayor a menor en el arreglo tridimensional. Así, la matriz que se obtendría de fijar el índice $i=0$\footnote{A diferencia del lenguaje FORTRAN, en el lenguaje Python los índices de los arreglos comienzan en 0.} estaría formada por los pixeles de menor valor de todas las imágenes. Este ordenamiento se realiza con la función \texttt{sort} de la librería \texttt{NumPy}.
+ \item Luego se ordenan los pixeles de la secuencia de imágenes de menor a mayor a lo largo del primer eje. Para clarificar esto, se toman los pixeles de coordenadas fijas $(j,k)$ de cada imagen de la secuencia y se los ordena de mayor a menor en el arreglo tridimensional. Así, la matriz que se obtendría de fijar el índice $i=0$ estaría formada por los pixeles de menor valor de todas las imágenes\footnote{A diferencia del lenguaje FORTRAN, en el lenguaje Python los índices de los arreglos comienzan en 0.}. Este ordenamiento se realiza con la función \texttt{sort} de la librería \texttt{NumPy}.
  \item Finalmente se calcula la mediana de todos los pixeles de coordenadas $(i,j)$ fijas, pero descartando los pixeles de valor más alto. La razón de este descarte es eliminar posibles defectos como el que se ve en la Figura~\ref{fig:dark}. Este cálculo de la mediana se realiza con la función \texttt{median} de la librería \texttt{NumPy}.
  \end{enumerate}
 
@@ -321,20 +388,55 @@ De esta manera, la calibración basada en la fórmula de reducción (\ref{eq:red
 Antes de proceder al apilado de las imágenes, es necesario alinearlas. Para este proceso se ha escrito un módulo llamado \texttt{registrado} que es en realidad un script que utiliza las herramientas de \texttt{astroalign} para alinear las imágenes previamente calibradas. Astroalign es un paquete que alinea dos imágenes astronómicas buscando asterismos de tres puntos (tres estrellas) en común entre las dos imágenes, y
 realizando una transformación afín entre ellas. El autor del paquete astroalign es Martin Beroiz \cite{astroalign}. Dado que el proceso de alineación o registro de imágenes está fuera del alcance de este informe, solo se mencionará que la función \texttt{registra\_lista}, dentro del módulo registrado, recibe como argumento la lista de imágenes a registrar y sobreescribe las imágenes de esa lista con nuevas versiones a las que se le aplicaron las transformaciones necesarias para un posterior apilado exitoso.
 
-Una vez finalizado el alineado, el programa está listo para realizar el apilado de las tomas científicas. Para ello, se escribió un módulo llamado \texttt{apilado}, que tiene dos opciones:
+Una vez finalizado el alineado, el programa está listo para realizar el apilado de las tomas científicas. Para ello, se escribió un módulo llamado \texttt{apilado}, que tiene dos opciones a elegir por el usuario:
 \begin{enumerate}
 \item Apilado realizando el promedio de todos los pixeles homólogos de cada imagen.
 \item Apilado con descarte de valores extremos (``pixel rejection'').
 \end{enumerate}
 
+Para ambas opciones, se construye un arreglo tridimensional con todas las tomas científicas reducidas, igual que se hacía para las tomas de calibración. Luego, según la opción elegida por el usuario, este arreglo se pasa como argumento a una de las dos funciones escritas para el apilado.
+
+Para la primera opción, la función \texttt{no\_rejection} simplemente toma todos los pixeles homólogos de todas las tomas científicas ya calibradas y alineadas y realiza el promedio. El resultado es una nueva matriz de nombre de variable \texttt{stack} que se devuelve a la subrutina principal.
+
+La segunda opción, que fue escrita desde cero para PyReduc, es algo más compleja. La idea del algoritmo contenido en la función \texttt{pixel\_rejection} es tomar los pixeles homólogos de cada imagen y promediarlos, pero rechazando aquellos que se aparten más de dos desviaciones estándar del promedio. El algoritmo se muestra en el Apéndice \ref{sec:apilado}.
+
+Finalizado el apilado, la imagen resultante se guarda en el archivo \texttt{stacking.fit}. Luego, el programa da la opción de visualizar dicha imagen. Para este fin, se ha escrito el módulo \texttt{visualizacion.py} que utiliza la librería {\tt matplotlib} para representar la imagen en pantalla. En este punto es necesario mencionar que toda imagen se puede caracterizar con un histograma que de cuenta de la frecuencia con la que aparecen los diferentes valores de pixeles en la imagen. Dado que las imágenes FIT resultantes habitualmente tienen una cantidad de niveles de brillo muy extensa, para poder apreciar los detalles de la imagen se hace necesario retocar el histograma de la imagen de alguna manera. Para ello, el módulo de visualización consta de tres opciones:
+\begin{enumerate}
+\item La opción manual, que le muestra al usuario el histograma para que este elija un valor máximo y un mínimo entre los cuales recortar. Así, el usuario ajusta el histograma entre estos dos niveles de brillo. El usuario también puede escoger si al mostrarse la imagen se usa una interpolación para suavizarla o no.
+\item El recorte automático del histograma entre los percentiles 2 y 98. Para este recorte automático se utiliza la función {\tt exposure.rescale\_intensity} de la librería {\tt skimage}.
+\item Una ecualización automática del histograma.
+\end{enumerate}
+
+Para la última opción, se ha escrito para PyReduc un último módulo, {\tt ecualizado.py} que es una implementación en lenguaje Python de un método muy difundido de ecualización de histogramas para el procesamiento digital de imágenes. La implementación se hizo a partir del algoritmo explicado en el libro ``Image Processing in C'' de Dwayne Phillips \cite{phillips}. El método de ecualización {\it mapea} un histograma que presenta picos notorios en otro más {\it aplanado} o {\it ecualizado}. Aplanar el histograma hace que los pixeles oscuros aparezcan a la vista más oscuros y que los pixeles claros aparezcan a la vista más claros. En el Apéndice \ref{sec:ecualizado} se explica un poco más del método de ecualizado y se lista el código implementado.
 
 
+Cabe destacar que las tres opciones de visualización trabajan en memoria RAM, por lo que ninguna de ellas altera realmente los datos de la imagen. En la ventana de visualización, el usuario puede encontrar un botón para guardar la imagen que está visualizando en un archivo con algún formato de mapa de bits tradicional, como el formato PNG. Al cerrar la ventana de visualización, las modificaciones al histograma se pierden.
 
-
+Vale la pena mencionar, que este módulo de visualización se puede ejecutar independientemente del resto del programa PyReduc, siempre y cuando la imagen que se quiera visualizar tenga formato FITS y nombre de archivo \texttt{stacking.fit}.
 
  
+\section{Resultados}
+Para probar el programa PyReduc se utilizó una serie de imágenes de la nebulosa Messier 8 (M8), más conocida como Nebulosa Laguna. La secuencia de imágenes se realizó con una cámara {\sf Canon EOS 700D} a foco primario en un telescopio Maksutov-Cassegrain de 102 mm de diámetro y relación focal f/12,7. Como se mostró en la Figura~\ref{fig:flat}, este dispositivo presenta un viñeteado significativo, que vuelve imprescindibles las tomas de calibración Flat. Se emplearon 9 tomas científicas de 30 s de exposición a ISO 3200\footnote{Este valor de ISO es bastante elevado para realizar fotometría, ya que se aleja mucho de la ganancia de $1 e^{-}$/ADU del sensor, pero es útil para probar las funciones de PyReduc, por la cantidad de información que es capaz de muestrear}. Para la calibración se realizaron 20 tomas Bias de $0.00025$ s de exposición, 10 Dark de 30 s de exposición y 15 Flat de 0,25 s de exposición. Previamente a la utilización de PyReduc, se extrajo de todas las imágenes RAW el canal verde y se creó así una nueva secuencia de imágenes FITS, utilizando el programa {\sf Siril}. De aquí en más siempre se trabajó con el canal verde de todas las imágenes.
 
- 
+En la Figura~\ref{fig:laguna0} se muestra una toma científica aún sin procesar de M8, tal como sale por la ventana de visualización empleada por PyReduc, con la opción de recorte automático del histograma entre los percentiles 2 y 98. La nebulosa se encuentra parcialmente enmascarada en el ruido. Obsérvese por ejemplo la región de pixeles de coordenadas $(1500, 2000)$: se divisa allí una estrella y apenas detrás, la nebulosa se confunde con el fondo de la imagen.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{img/sin_proc.png}
+  \caption{\label{fig:laguna0} Toma científica de la Nebulosa Laguna (M8) sin procesar, con el histograma recortado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma.}
+\end{figure}
+
+Luego de ejecutar el programa completo, con apilado por promedio simple de pixeles en las tomas ya calibradas y alineadas, se obtuvo la imagen que muestra la Figura~\ref{fig:apiladofinal}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{img/apiladofinal_scikit.png}
+  \caption{\label{fig:apiladofinal} Imagen apilada de la Nebulosa Laguna (M8), con el histograma recortado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma. Esta imagen está compuesta por 9 tomas científicas, 20 tomas Bias, 10 Dark y 15 Flat.}
+\end{figure}
+
+
+
+
 
 
 
@@ -342,7 +444,7 @@ Una vez finalizado el alineado, el programa está listo para realizar el apilado
 
 \begin{thebibliography}{100}
 \bibitem{aavso} American Association of Variable Star Observers: {\it ``Manual de Observación DSLR de AAVSO''}, Versión 1.1 en Español, 2015. En Internet: \url{https://www.aavso.org/dslr-observing-manual}
-  \bibitem{fsf} Free Software Foundation: {``Qué es el software libre?''}, Versión 1.153, 2017. En Internet: \url{https://www.gnu.org/philosophy/free-sw.es.html}
+  \bibitem{fsf} Free Software Foundation: {\it ``Qué es el software libre?''}, Versión 1.153, 2017. En Internet: \url{https://www.gnu.org/philosophy/free-sw.es.html}
 \bibitem{greisen} Eric W. Greisen: {\it ``FITS: a remarkable achievement in information exchange''}, 2003. En: Heck A. (eds) Information Handling in Astronomy - Historical Vistas. Astrophysics and Space Science Library, vol 285. Springer, Dordrecht. \url{https://doi.org/10.1007/0-306-48080-8_5}
 \bibitem{phillips} Dwayne Phillips: {\it ``Image Processing in C''}, 2nd Ed, 2000. En Internet: \url{http://homepages.inf.ed.ac.uk/rbf/BOOKS/PHILLIPS/cips2ed.pdf}
 \bibitem{gil-hutton} Ricardo Gil-Hutton: {\it ``Cómo hacer una reducción básica de imágenes FITS con Python''}, Noviembre 2016. En Internet: \url{https://freeshell.de/~rgh/arch/python/python-red-basica.pdf}
@@ -353,22 +455,73 @@ Una vez finalizado el alineado, el programa está listo para realizar el apilado
 \bibitem{astropy} Astropy Collaboration: {\it ``The Astropy Project: Building an Open-science Project and Status of the v2.0 Core Package''}, The Astronomical Journal, Volume 156, Issue 3, article id. 123, 19 pp., 2018. \url{https://doi.org/10.3847/1538-3881/aabc4f}
 \bibitem{aydin}  M. Emre Aydin: {\it ``cr2fits v2''}, Version v2.1.0, 2017, May 21, Zenodo. \url{http://doi.org/10.5281/zenodo.581722}
 \bibitem{astroalign} Martin Beroiz: {\it ``toros-astro/astroalign''}, Version v1.0.3, 2018, May 18. Zenodo. \url{http://doi.org/10.5281/zenodo.1249048}
+\bibitem{easton} Roger L. Easton Jr.: {\it ``Fundamentals of Digital Image Processing''}, Noviembre de 2010, Chester F. Carlson Center for Imaging Science, Rochester Institute of Technology. \url{https://www.cis.rit.edu/class/simg361/Notes_11222010.pdf}
 \end{thebibliography}
 
 
 
 
-
+\newpage
 \appendix
-%\section{Linealidad y ganancia de una cámara DSLR}
-%\label{ap:gain}
-%En esta sección se muestran gráficas de linealidad y ganancia para la cámara DSLR {\sf Canon EOS 700D}. No es el objetivo de este trabajo explicar cómo se lleva a cabo esta medición.
 
-%\begin{figure}[!ht]
-%  \centering
-%  \includegraphics[width=0.8\textwidth]{img/linealidad.png}
-%  \caption{\label{fig:linealidad} Curva de linealidad para la cámara DSLR {\sf Canon EOS 700D}}.
-%\end{figure}
+\section{Listado del código principal de PyReduc}
+En esta sección se lista el código contenido en el archivo {\tt pyreduc.py}, módulo principal de PyReduc.
+\input{listings1.tex}
 
+\section{Listado del código de alineación con Astroalign}
+En esta sección se lista el script utilizado para alinear las tomas calibradas utilizando el software Astroalign. Dicho script está contenido en el módulo \texttt{registrado.py}.
+\input{align.tex}
+
+\section{Listado del código de apilado de PyReduc}
+\label{sec:apilado}
+En esta sección se explica el código utilizado por PyReduc para apilar las tomas científicas ya calibradas y alineadas. Este módulo, contenido en el archivo \texttt{apilado.py}, consta de tres funciones: la función principal, \texttt{stacking}, recibe como argumento la lista de imágenes a apilar y las organiza en un arreglo tridimensional. Además, recibe como argumento una variable llamada {\tt rechazar}, que vale 1 si el usuario decidió realizar un promedio simple de las imágenes, o vale 2, si el usuario decidió que se apile con un algoritmo de descarte de valores extremos. En función de esa decisión, la función stacking llama a una de las dos funciones restantes: {\tt no\_rejection} para un promedio simple de las imágenes o {\tt pixel\_rejection} de lo contrario. La función {\tt no\_rejection} toma como argumento el arreglo tridimensional de imágenes a apilar y devuelve, el promedio de todas esas imágenes en una matriz de \texttt{NumPy} de nombre de variable \texttt{stack}. 
+
+La función {\tt pixel\_rejection} tiene un desarrollo más complejo y fue escrita para PyReduc. Toma como argumento el arreglo tridimensional \texttt{cubo} y un valor {\tt m} preestablecido en la función {\tt stacking}. En el código actual, {\tt m} vale 2, y significa que se ignorarán para el promedio todos los valores de pixeles que se alejen más de 2 desviaciones estándar del valor medio. El algoritmo recorre el arreglo tridimensional de imágenes, en el que el elemento $a_{ijk}$ es el pixel de coordenadas $(j,k)$ de la {\it i-ésima} imagen.
+Para cada par $(j,k)$ fijo, se calcula el promedio $$\overline{a_{jk}}=\sum_{i=0}^{N-1}a_{ijk}$$
+y la desviación estándar del promedio $\sigma_{jk}$. Luego se calculan los valores extremos que se van a aceptar:
+$$maskmin = \overline{a_{jk}} - m\sigma_{jk}$$
+$$maskmax = \overline{a_{jk}} - m\sigma_{jk}$$
+Como se ha dicho, $m$ en este caso toma el valor 2. Finalmente, en la línea 20 del algoritmo, se usa un {\it arreglo enmascarado} de {\tt NumPy} (Masked Array) para promediar los valores de $a_{ijk}$ (con $j$ y $k$ fijos) que se encuentran en el intervalo $[maskmin, maskmax]$ ignorando el resto de los valores.
+
+Al igual que en la otra opción de apilado, la función \texttt{pixel\_rejection} devuelve una matriz llamada \texttt{stack} que contiene la imagen promediada. Antes de finalizar, de regreso en la función \texttt{stacking}, se guarda la imagen resultante en el archivo \texttt{stacking.fit}.
+
+El módulo recién descripto se lista a continuación:
+\input{stacking.tex}
+
+\section{Listado del código de visualización de imágenes}
+En esta sección se lista el código utilizado para mostrar por pantalla la imagen final obtenida con el apilado. Este módulo, contenido en el archivo \texttt{visualizacion.py}, tiene tres opciones de visualización: con ecualizado automático, con recorte manual del histograma y con recorte automático entre los percentiles 2 y 98.
+\input{visualiza.tex}
+
+\section{Método de ecualización del histograma}
+\label{sec:ecualizado}
+En esta sección, por último, se explica brevemente el método de ecualización del histograma de una imagen y se lista el código del módulo \texttt{ecualizado.py} para implementar la ecualización del histograma de la imagen final obtenida con PyReduc.
+
+Como se explicó anteriormente, el método de ecualización {\it mapea} un histograma que presenta picos notorios en otro más {\it aplanado} o {\it ecualizado}. La operación de ecualización se puede representar con una función $f$ que, al operar sobre una imagen $c$, la transforma en otra imagen $b$ con un histograma aplanado:
+\begin{equation}
+  \label{eq:ecualiz}
+  b(x,y)=f[c(x,y)]
+\end{equation}
+
+La ecuación (\ref{eq:probab1}) muestra la función densidad de probabilidad de hallar un pixel con el valor $a$ en la imagen.
+\begin{equation}
+  \label{eq:probab1}
+  p_1(a)=\frac{1}{A} H_1(a)
+\end{equation}
+donde $A$ es el área de la imagen en pixeles y $H_1(a)$ es la distribución que da el histograma de la imagen. Sumando todas las funciones densidad de probabilidad hasta el valor $a$, obtenemos la función densidad acumulativa (cdf):
+\begin{equation}
+  \label{eq:cdf}
+  P_1(a)=\frac{1}{A} \sum_{i=0}^a H_1(i)
+\end{equation}
+Si $D$ es el número de niveles de gris en la imagen ecualizada $b$, se deberá cumplir $$D=\frac{1}{p(a)}$$ para cada valor de pixel $a$ en la imagen $b$. Esa es la razón por la que decimos que al ecualizar, aplanamos el histograma: todos los valores de pixeles aparecen la misma cantidad de veces.
+Para obtener la función de ecualización $f(a)$, multiplicamos, entonces, el número de niveles de grises $D$ de la imagen $b$ por la función densidad acumulativa, obteniendo así
+\begin{equation}
+  \label{eq:f}
+  f(a)=D\frac{1}{A} \sum_{i=0}^a H_c(i)
+\end{equation}
+Cuando la imagen tiene un histograma {\it aplanado}, el histograma acumulativo asociado, dado por su cdf tiene forma de función lineal, monótonamente creciente. Una imagen de este tipo tiene un máximo contraste, lo cual quiere decir que puede exhibir los más sutiles cambios a lo largo de todo su rango de grises. Se dice en este caso que la información\footnote{En el sentido de información de Shannon} de la imagen fue maximizada\cite{easton}.
+
+El algoritmo implementado en Python 3 para el ecualizado automático de la imagen final se lista a continuación:
+
+\input{ecualizado.tex}
 
 \end{document}

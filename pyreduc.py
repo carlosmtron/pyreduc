@@ -34,7 +34,7 @@ print("Versión: 0.2.0")
 print("_______________________________________")
 print("\nLas imágenes FITS deben estar en un directorio llamado")
 print('''"pyreduc/FITS/", dentro del directorio home.''')
-print("Los prefijos de los archivos deben seguir las siguientes regla:")
+print("Los prefijos de los archivos deben seguir las siguientes reglas:")
 print(''' FLATS: "flat*"\n DARKS: "dark*"\n BIAS: "bias*" \ndonde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado\n''')
 
 # Averiguo el nombre del directorio home
