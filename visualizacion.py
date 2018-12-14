@@ -21,6 +21,7 @@ def modo_histograma(n, imagen):
         valmin=np.mean(image_data)-3*np.std(image_data)
         valmax=np.mean(image_data)+3*np.std(image_data)
         image_hist = plt.hist(image_data.flatten(), bins=1000, range=(valmin,valmax))
+        plt.subplots_adjust(left=0, right=1, top=0.98, bottom=0.05)
         plt.show(image_hist)
         #
         valmin=input("A partir del histograma, ingrese el mínimo valor deseado: ")
@@ -32,6 +33,7 @@ def modo_histograma(n, imagen):
             interp='none'
             
         plt.imshow(image_data, cmap='gray', vmin=valmin, vmax=valmax, interpolation=interp)
+        plt.subplots_adjust(left=0, right=1, top=0.98, bottom=0.05)
         plt.colorbar()
         plt.show()
             
@@ -39,6 +41,7 @@ def modo_histograma(n, imagen):
     def caso_ecualizador(imagen):
         nueva_imagen = ecualizado.transformacion(imagen)
         plt.imshow(nueva_imagen, cmap='gray', interpolation='bilinear')
+        plt.subplots_adjust(left=0, right=1, top=0.98, bottom=0.05)
         plt.colorbar()
         plt.show()
 
@@ -51,6 +54,7 @@ def modo_histograma(n, imagen):
         # exposure.equalize_hist(imagen)
         #
         plt.imshow(img_rescale, cmap='gray', interpolation='bilinear')
+        plt.subplots_adjust(left=0, right=1, top=0.98, bottom=0.05)
         plt.colorbar()
         plt.show()
         
