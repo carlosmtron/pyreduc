@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.11.24)  16 DEC 2018 15:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.11.24)  16 DEC 2018 18:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -354,7 +354,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count118
-<fceia.pdf, id=64, 1248.665pt x 595.22375pt>
+<fceia.pdf, id=72, 1248.665pt x 595.22375pt>
 File: fceia.pdf Graphic file (type pdf)
 <use fceia.pdf>
 Package pdftex.def Info: fceia.pdf  used on input line 96.
@@ -369,20 +369,27 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 97.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<unr.pdf, id=65, 291.0875pt x 307.1475pt>
+<unr.pdf, id=73, 291.0875pt x 307.1475pt>
 File: unr.pdf Graphic file (type pdf)
 <use unr.pdf>
 Package pdftex.def Info: unr.pdf  used on input line 111.
 (pdftex.def)             Requested size: 73.97733pt x 78.05678pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./fceia.pdf> <./unr.pdf>]p
-dfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
-een already used, duplicate ignored
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./fceia.pdf> <./unr.pdf>]
+(./informe_fisicomp.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@toc=\write4
+\openout4 = `informe_fisicomp.toc'.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.186 
-       [1] [2]
+l.154 \newpage
+               [1] [2] [3]
 Overfull \hbox (10.3034pt too wide) in paragraph at lines 231--231
 []\OT1/cmtt/m/n/12 COMMENT   FITS (Flexible Image Transport System) format is d
 efined in 'Astronomy[] 
@@ -394,54 +401,52 @@ Overfull \hbox (4.1284pt too wide) in paragraph at lines 231--231
 2001A&A...376..359H[] 
  []
 
-[3] [4]
-<img/dark.png, id=129, 207.4149pt x 120.6909pt>
+[4] [5]
+<img/dark.png, id=159, 207.4149pt x 120.6909pt>
 File: img/dark.png Graphic file (type png)
 <use img/dark.png>
 Package pdftex.def Info: img/dark.png  used on input line 279.
 (pdftex.def)             Requested size: 362.77263pt x 211.09804pt.
- [5]
-<img/flatx.png, id=137, 1156.32pt x 575.9919pt>
+ [6]
+<img/flatx.png, id=169, 1156.32pt x 575.9919pt>
 File: img/flatx.png Graphic file (type png)
 <use img/flatx.png>
 Package pdftex.def Info: img/flatx.png  used on input line 291.
 (pdftex.def)             Requested size: 483.69684pt x 240.93936pt.
- [6 <./img/dark.png>] [7 <./img/flatx.png>]
+ [7 <./img/dark.png>] [8 <./img/flatx.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 329--330
 
  []
 
-[8] [9] [10]
+[9] [10] [11]
 Overfull \hbox (0.99492pt too wide) in paragraph at lines 399--400
 []\OT1/cmr/m/n/12 Para la pri-me-ra op-ci^^Son, la fun-ci^^Son \OT1/cmtt/m/n/12
  no[]rejection \OT1/cmr/m/n/12 sim-ple-men-te to-ma to-dos los pi-xe-les hom^^S
 olo-
  []
 
-[11]
-<img/sin_proc.png, id=211, 1156.32pt x 575.9919pt>
+[12]
+<img/sin_proc.png, id=242, 1156.32pt x 575.9919pt>
 File: img/sin_proc.png Graphic file (type png)
 <use img/sin_proc.png>
 Package pdftex.def Info: img/sin_proc.png  used on input line 425.
 (pdftex.def)             Requested size: 483.69684pt x 240.93936pt.
-<img/apiladofinal_scikit.png, id=213, 1156.32pt x 575.9919pt>
+ [13 <./img/sin_proc.png>]
+<img/apiladofinal_scikit.png, id=253, 1156.32pt x 575.9919pt>
 File: img/apiladofinal_scikit.png Graphic file (type png)
 <use img/apiladofinal_scikit.png>
 Package pdftex.def Info: img/apiladofinal_scikit.png  used on input line 433.
 (pdftex.def)             Requested size: 483.69684pt x 240.93936pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<img/histo_00004.png, id=214, 1156.32pt x 575.9919pt>
+<img/histo_00004.png, id=254, 1156.32pt x 575.9919pt>
 File: img/histo_00004.png Graphic file (type png)
 <use img/histo_00004.png>
 Package pdftex.def Info: img/histo_00004.png  used on input line 441.
 (pdftex.def)             Requested size: 483.69684pt x 240.93936pt.
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<img/histo_final.png, id=217, 1156.32pt x 575.9919pt>
+<img/histo_final.png, id=257, 1156.32pt x 575.9919pt>
 File: img/histo_final.png Graphic file (type png)
 <use img/histo_final.png>
 Package pdftex.def Info: img/histo_final.png  used on input line 447.
@@ -449,55 +454,77 @@ Package pdftex.def Info: img/histo_final.png  used on input line 447.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[12 <./img/sin_proc.png>] [13 <./img/apiladofinal_scikit.png> <./img/histo_0000
-4.png>] [14 <./img/histo_final.png>]
-<img/SNR.pdf, id=257, 1237.62375pt x 687.56876pt>
+[14 <./img/apiladofinal_scikit.png>] [15 <./img/histo_00004.png> <./img/histo_f
+inal.png>]
+<img/SNR.pdf, id=284, 1237.62375pt x 686.565pt>
 File: img/SNR.pdf Graphic file (type pdf)
 <use img/SNR.pdf>
 Package pdftex.def Info: img/SNR.pdf  used on input line 467.
-(pdftex.def)             Requested size: 483.69684pt x 268.71727pt.
- [15 <./img/SNR.pdf>]
-Underfull \hbox (badness 1931) in paragraph at lines 480--481
+(pdftex.def)             Requested size: 483.69684pt x 268.32498pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/Figure_Manual.png, id=286, 1156.32pt x 575.9919pt>
+File: img/Figure_Manual.png Graphic file (type png)
+<use img/Figure_Manual.png>
+Package pdftex.def Info: img/Figure_Manual.png  used on input line 478.
+(pdftex.def)             Requested size: 386.95894pt x 192.74974pt.
+<img/Figure_Ecualizado.png, id=287, 1156.32pt x 575.9919pt>
+File: img/Figure_Ecualizado.png Graphic file (type png)
+<use img/Figure_Ecualizado.png>
+Package pdftex.def Info: img/Figure_Ecualizado.png  used on input line 479.
+(pdftex.def)             Requested size: 386.95894pt x 192.74974pt.
+File: img/apiladofinal_scikit.png Graphic file (type png)
+<use img/apiladofinal_scikit.png>
+Package pdftex.def Info: img/apiladofinal_scikit.png  used on input line 480.
+(pdftex.def)             Requested size: 386.95894pt x 192.74974pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16] [17 <./img/SNR.pdf>] [18 <./img/Figure_Manual.png> <./img/Figure_Ecualizad
+o.png>]
+Underfull \hbox (badness 1931) in paragraph at lines 508--509
 []\OT1/cmr/m/n/12 Ricardo Gil-Hutton: \OT1/cmr/m/it/12 ``C^^Somo ha-cer una re-
 duc-ci^^Son b^^Sasi-ca de im^^Sage-nes FITS con
  []
 
-[16] (./listings1.tex
+[19] [20] (./listings1.tex
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2018/09/02 1.7 listings language file
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 17.
- [17] [18]
-[19] [20] [21] [22]) (./align.tex [23]) [24] (./stacking.tex [25])
-(./visualiza.tex [26]
+ [21] [22]
+[23] [24] [25] [26]) (./align.tex [27]) [28] (./stacking.tex [29])
+(./visualiza.tex [30]
 LaTeX Font Info:    Try loading font information for U+lasy on input line 51.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-[27]) [28] (./ecualizado.tex [29])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 558.
- [30]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 558.
+[31]) [32] (./ecualizado.tex [33])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 587.
+ [34]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 587.
  (./informe_fisicomp.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 558.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 558.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 587.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 587.
 Package rerunfilecheck Info: File `informe_fisicomp.out' has not changed.
-(rerunfilecheck)             Checksum: B6612E8355E026831271B5B444500FBA;1118.
+(rerunfilecheck)             Checksum: 47FD8B88DE8E67A85B9D4EE8E4EE71BA;1323.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 558.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 587.
  ) 
 Here is how much of TeX's memory you used:
- 10671 strings out of 494522
- 153050 string characters out of 6175835
- 640883 words of memory out of 5000000
- 13587 multiletter control sequences out of 15000+600000
+ 10697 strings out of 494522
+ 153528 string characters out of 6175835
+ 643553 words of memory out of 5000000
+ 13600 multiletter control sequences out of 15000+600000
  13854 words of font info for 54 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  36i,12n,49p,1253b,2103s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -521,10 +548,10 @@ fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/latxfont/lasy10.pfb>
-Output written on informe_fisicomp.pdf (31 pages, 4518097 bytes).
+Output written on informe_fisicomp.pdf (35 pages, 5950014 bytes).
 PDF statistics:
- 1088 PDF objects out of 1200 (max. 8388607)
- 1000 compressed objects within 10 object streams
- 610 named destinations out of 1000 (max. 500000)
- 166 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1152 PDF objects out of 1200 (max. 8388607)
+ 1053 compressed objects within 11 object streams
+ 618 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 

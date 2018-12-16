@@ -1,10 +1,20 @@
 \babel@toc {spanish}{}
-\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n te\IeC {\'o}rica}{1}{section.1}
-\contentsline {subsection}{\numberline {1.1}Motivaci\IeC {\'o}n: Fotometr\IeC {\'\i }a DSLR}{1}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}El formato FITS}{2}{subsection.1.2}
-\contentsline {paragraph}{Cabecera FITS (Header)}{2}{section*.3}
-\contentsline {paragraph}{Datos FITS}{4}{section*.4}
-\contentsline {subsection}{\numberline {1.3}Reducci\IeC {\'o}n de im\IeC {\'a}genes: Tomas Dark, Bias y Flat}{5}{subsection.1.3}
-\contentsline {subsubsection}{\numberline {1.3.1}Tomas Bias}{5}{subsubsection.1.3.1}
-\contentsline {subsubsection}{\numberline {1.3.2}Tomas Dark}{5}{subsubsection.1.3.2}
-\contentsline {subsubsection}{\numberline {1.3.3}Tomas Flat}{6}{subsubsection.1.3.3}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n te\IeC {\'o}rica}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Motivaci\IeC {\'o}n}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Algunos conceptos: Fotometr\IeC {\'\i }a DSLR}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}El formato FITS}{3}{subsection.1.3}
+\contentsline {paragraph}{Cabecera FITS (Header)}{4}{section*.3}
+\contentsline {paragraph}{Datos FITS}{6}{section*.4}
+\contentsline {subsection}{\numberline {1.4}Reducci\IeC {\'o}n de im\IeC {\'a}genes: Tomas Dark, Bias y Flat}{6}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {1.4.1}Tomas Bias}{6}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {1.4.2}Tomas Dark}{6}{subsubsection.1.4.2}
+\contentsline {subsubsection}{\numberline {1.4.3}Tomas Flat}{7}{subsubsection.1.4.3}
+\contentsline {section}{\numberline {2}Metodolog\IeC {\'\i }a}{9}{section.2}
+\contentsline {section}{\numberline {3}Resultados}{13}{section.3}
+\contentsline {section}{\numberline {4}Conclusiones y perspectivas}{19}{section.4}
+\contentsline {section}{\numberline {A}Ap\IeC {\'e}ndice}{21}{appendix.Alph1}
+\contentsline {subsection}{\numberline {A.1}Listado del c\IeC {\'o}digo principal de PyReduc}{21}{subsection.Alph1.1}
+\contentsline {subsection}{\numberline {A.2}Listado del c\IeC {\'o}digo de alineaci\IeC {\'o}n con Astroalign}{27}{subsection.Alph1.2}
+\contentsline {subsection}{\numberline {A.3}Listado del c\IeC {\'o}digo de apilado de PyReduc}{28}{subsection.Alph1.3}
+\contentsline {subsection}{\numberline {A.4}Listado del c\IeC {\'o}digo de visualizaci\IeC {\'o}n de im\IeC {\'a}genes}{30}{subsection.Alph1.4}
+\contentsline {subsection}{\numberline {A.5}M\IeC {\'e}todo de ecualizaci\IeC {\'o}n del histograma}{33}{subsection.Alph1.5}

@@ -131,7 +131,7 @@ Carlos Mauricio Silva\\
 \vspace*{3cm}
 
 \begin{abstract}
-  En este trabajo se presenta el desarrollo del software PyReduc, cuyo objetivo es reducir y apilar imágenes astronómicas en formato FITS. Se comentan los fundamentos de la reducción de imágenes y se explican las funciones principales del programa.
+  En este trabajo se presenta el desarrollo del software PyReduc, cuyo objetivo es reducir y apilar imágenes astronómicas en formato FITS. Se comentan los fundamentos de la reducción de imágenes y se explican las funciones principales del programa. Se comprueba el funcionamiento del software y se verifica que utilizando PyReduc para reducir y apilar imágenes astronómicas resulta en una mejora de la relación señal/ruido (SNR) de las imágenes.
 \end{abstract}
 
 \vspace{5cm}
@@ -150,8 +150,8 @@ Carlos Mauricio Silva\\
 \rfoot{\scriptsize{Página \thepage}}
 \renewcommand{\footrulewidth}{0.6pt}
 
-%\tableofcontents
-%\newpage
+\tableofcontents
+\newpage
 
 \section{Introducción teórica}
 \subsection{Motivación}
@@ -402,9 +402,9 @@ La segunda opción, que fue escrita desde cero para PyReduc, es algo más comple
 
 Finalizado el apilado, la imagen resultante se guarda en el archivo \texttt{stacking.fit}. Luego, el programa da la opción de visualizar dicha imagen. Para este fin, se ha escrito el módulo \texttt{visualizacion.py} que utiliza la librería {\tt matplotlib} para representar la imagen en pantalla. En este punto es necesario mencionar que toda imagen se puede caracterizar con un histograma que de cuenta de la frecuencia con la que aparecen los diferentes valores de pixeles en la imagen. Dado que las imágenes FIT resultantes habitualmente tienen una cantidad de niveles de brillo muy extensa, para poder apreciar los detalles de la imagen se hace necesario retocar el histograma de la imagen de alguna manera. Para ello, el módulo de visualización consta de tres opciones:
 \begin{enumerate}
-\item La opción manual, que le muestra al usuario el histograma para que este elija un valor máximo y un mínimo entre los cuales recortar. Así, el usuario ajusta el histograma entre estos dos niveles de brillo. El usuario también puede escoger si al mostrarse la imagen se usa una interpolación para suavizarla o no.
-\item El recorte automático del histograma entre los percentiles 2 y 98. Para este recorte automático se utiliza la función {\tt exposure.rescale\_intensity} de la librería {\tt skimage}.
-\item Una ecualización automática del histograma.
+\item La opción manual, que le muestra al usuario el histograma para que este elija un valor máximo y un mínimo entre los cuales recortar. Así, el usuario ajusta el histograma entre estos dos niveles de brillo. El usuario también puede escoger si al mostrarse la imagen se usa una interpolación bilineal para suavizarla o no.
+\item El reescalado automático del histograma entre los percentiles 2 y 98. Para este reescalado automático se utiliza la función {\tt exposure.rescale\_intensity} de la librería {\tt skimage}. Luego, en la representación de la imagen se utiliza una interpolación bilineal.
+\item Una ecualización automática del histograma. En la representación se utiliza una interpolación bilineal.
 \end{enumerate}
 
 Para la última opción, se ha escrito para PyReduc un último módulo, {\tt ecualizado.py} que es una implementación en lenguaje Python de un método muy difundido de ecualización de histogramas para el procesamiento digital de imágenes. La implementación se hizo a partir del algoritmo explicado en el libro ``Image Processing in C'' de Dwayne Phillips \cite{phillips}. El método de ecualización {\it mapea} un histograma que presenta picos notorios en otro más {\it aplanado} o {\it ecualizado}. Aplanar el histograma hace que los pixeles oscuros aparezcan a la vista más oscuros y que los pixeles claros aparezcan a la vista más claros. En el Apéndice \ref{sec:ecualizado} se explica un poco más del método de ecualizado y se lista el código implementado.
@@ -418,20 +418,20 @@ Vale la pena mencionar, que este módulo de visualización se puede ejecutar ind
 \section{Resultados}
 Para probar el programa PyReduc se utilizó una serie de imágenes de la nebulosa Messier 8 (M8), más conocida como Nebulosa Laguna. La secuencia de imágenes se realizó con una cámara {\sf Canon EOS 700D} a foco primario en un telescopio Maksutov-Cassegrain de 102 mm de diámetro y relación focal f/12,7. Como se mostró en la Figura~\ref{fig:flat}, este dispositivo presenta un viñeteado significativo, que vuelve imprescindibles las tomas de calibración Flat. Se emplearon 9 tomas científicas de 30 s de exposición a ISO 3200\footnote{Este valor de ISO es bastante elevado para realizar fotometría, ya que se aleja mucho de la ganancia de $1 e^{-}$/ADU del sensor, pero es útil para probar las funciones de PyReduc, por la cantidad de información que es capaz de muestrear}. Para la calibración se realizaron 20 tomas Bias de $0.00025$ s de exposición, 10 Dark de 30 s de exposición y 15 Flat de 0,25 s de exposición. Previamente a la utilización de PyReduc, se extrajo de todas las imágenes RAW el canal verde y se creó así una nueva secuencia de imágenes FITS, utilizando el programa {\sf Siril}. De aquí en más siempre se trabajó con el canal verde de todas las imágenes.
 
-En la Figura~\ref{fig:laguna0} se muestra una toma científica aún sin procesar de M8, tal como sale por la ventana de visualización empleada por PyReduc, con la opción de recorte automático del histograma entre los percentiles 2 y 98. La nebulosa se encuentra parcialmente enmascarada en el ruido. Obsérvese por ejemplo la región de pixeles de coordenadas $(1500, 2000)$: se divisa allí una estrella y apenas detrás, la nebulosa se confunde con el fondo de la imagen.
+En la Figura~\ref{fig:laguna0} se muestra una toma científica aún sin procesar de M8, tal como sale por la ventana de visualización empleada por PyReduc, con la opción de reescalado automático del histograma entre los percentiles 2 y 98. La nebulosa se encuentra parcialmente enmascarada en el ruido. Obsérvese por ejemplo la región de pixeles de coordenadas $(1500, 2000)$: se divisa allí una estrella y apenas detrás, la nebulosa se confunde con el fondo de la imagen.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\textwidth]{img/sin_proc.png}
-  \caption{\label{fig:laguna0} Toma científica de la Nebulosa Laguna (M8) sin procesar, con el histograma recortado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma.}
+  \caption{\label{fig:laguna0} Toma científica de la Nebulosa Laguna (M8) sin procesar, con el histograma reescalado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma.}
 \end{figure}
 
-Luego de ejecutar el programa completo, con apilado por promedio simple de pixeles en las tomas ya calibradas y alineadas, se obtuvo la imagen que se muestra en la Figura~\ref{fig:apiladofinal}. Obsérvese nuévamente en la región  de pixeles de coordenadas $(1500, 2000)$: alrededor de la estrella que se observaba antes ``aislada'', ha aparecido una región oscura que antes apenas se apreciaba. La nebulosa se halla mucho más definida.
+Luego de ejecutar el programa completo, con apilado por promedio simple de pixeles en las tomas ya calibradas y alineadas, se obtuvo la imagen que se muestra en la Figura~\ref{fig:apiladofinal}. Obsérvese nuévamente en la región  de pixeles de coordenadas $(1500, 2000)$: alrededor de la estrella que se observaba antes ``aislada'', ha aparecido una región oscura que antes apenas se apreciaba. La nebulosa se halla mucho más definida. Algo importante a observar es que no hay indiciones de que el registrado sea deficiente. Esto se evidencia en que las estrellas de la imagen final no se han deformado, comparativamente con las tomas originales.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\textwidth]{img/apiladofinal_scikit.png}
-  \caption{\label{fig:apiladofinal} Imagen apilada de la Nebulosa Laguna (M8), con el histograma recortado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma. Esta imagen está compuesta por 9 tomas científicas, 20 tomas Bias, 10 Dark y 15 Flat.}
+  \caption{\label{fig:apiladofinal} Imagen apilada de la Nebulosa Laguna (M8), con el histograma reescalado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma. Esta imagen está compuesta por 9 tomas científicas, 20 tomas Bias, 10 Dark y 15 Flat.}
 \end{figure}
 
 
@@ -459,7 +459,7 @@ Una forma posible de probar la calidad de todo el proceso es medir la relación 
 \item Se calculó la relación señal/ruido en decibeles como $$\mbox{SNR}=10 \log{\left(\frac{\mu_s - \mu_{bg}}{\sigma_{bg}}\right)}$$ Aunque hay diferentes definiciones para la SNR, en este trabajo se eligió esta definición, algo diferente de la de la bibliografía \cite{easton, romanishin}, por su practicidad a la hora de medir, sin necesidad de tomas de referencia o de calcular parámetros de la cámara.
 \end{enumerate}
 
-En la Figura~\ref{fig:snr} se muestra una gráfica de las mediciones de SNR realizadas con el proceso antes descripto, incrementando la cantidad de tomas científicas a apilar de a una por vez. También se incluyen las mediciones de una toma sin reducir, y de una sola toma reducida con Bias, Dark y Flats. Se observa que, efectivamente, una toma reducida tiene una mayor SNR que una toma sin reducir. Además se observa que a medida que se apilan más tomas, la SNR aumenta. Comprobamos así que el apilado, con el conjunto de imágenes de prueba aquí utilizado, mejora la SNR. Queda pendiente comprobar que esta mejora se sigue cumpliendo al apilar un mayor número de tomas científicas, digamos entre 50 y 100 tomas.
+En la Figura~\ref{fig:snr} se muestra una gráfica de las mediciones de SNR realizadas con el proceso antes descripto, incrementando la cantidad de tomas científicas a apilar de a una por vez. También se incluyen las mediciones de una toma sin reducir, y de una sola toma reducida con Bias, Dark y Flats. Se observa que, efectivamente, una toma reducida tiene una mayor SNR que una toma sin reducir. Además se observa que a medida que se apilan más tomas, la SNR aumenta. Comprobamos así que el apilado, con el conjunto de imágenes de prueba aquí utilizado, mejora la SNR.  Aunque, debido a la pequeña cantidad de imágenes apiladas, este procedimiento no pretende ser preciso, se ha determinado una relación experimental entre la SNR y la cantidad de tomas científicas $x$: $$\mbox{SNR}=17.9(x-0.77)^{0.054}$$ Las incertezas de esta determinación se presentan junto con el ajuste no lineal en la Figura~\ref{fig:snr}. Queda pendiente comprobar que esta tendencia de mejora de la SNR al aumentar el número de tomas se sigue cumpliendo al apilar un mayor número de tomas científicas, digamos entre 50 y 100 tomas.
 
 
 \begin{figure}[!h]
@@ -469,6 +469,34 @@ En la Figura~\ref{fig:snr} se muestra una gráfica de las mediciones de SNR real
 \end{figure}
 
 
+Luego de estas primeras pruebas, se verificó el funcionamiento del algoritmo de apilado con descarte de valores extremos (Pixel Rejection). Aunque el algoritmo funcionó correctamente, se encontró que el tiempo de ejecución era súmamente largo, en comparación con el del promedio simple, o con el realizado por otros softwares. En una computadora {\sf intel CORE i7 7th Gen} con 16 GB de RAM, el tiempo de ejecución de este algoritmo fue de 55 min. En este caso, para obtener resultados más rápidos, sería necesario paralelizar este proceso, para que el trabajo de recorrer el arreglo de imágenes a apilar no sea tan lento. Por otro lado, en la instancia de visualización, no se encontraron diferencias significativas entre las imágenes resultantes de los dos métodos de apilado.
+
+Finalmente, se realizó una comparativa de los tres métodos de visualización. En la Figura~\ref{fig:visual} se muestran los tres métodos juntos. 
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/Figure_Manual.png}
+  \includegraphics[width=0.8\textwidth]{img/Figure_Ecualizado.png}
+  \includegraphics[width=0.8\textwidth]{img/apiladofinal_scikit.png}
+  \caption{\label{fig:visual} Comparación de los tres modos de visualización que ofrece PyReduc. En el centro, recorte manual entre los valores -100 y 400 del histograma. En el medio, ecualización automática de PyReduc. Abajo,  reescalado entre los percentiles 2 y 98, utilizando la librería scikit.}
+\end{figure}
+
+Es importante notar la diferencia entre las escalas de niveles de gris que se presentan a la derecha de cada imagen para comprender lo que hace cada modo de visualización. En el caso del recorte manual (Figura~\ref{fig:visual}, arriba), al usuario se le presenta un histograma, en este caso, el de la Figura~\ref{fig:histo_proc}, y este elige entre qué valores recortar. Para esta prueba, se ha elegido el intervalo $[-100,400]$ para mostrar la imagen, y eso es lo que puede verse en la barra lateral. En este caso, entonces, el valor $-100$ corresponde al negro y el valor $400$ al blanco. La imagen resultante no revela muchos detalles de la nebulosa, por lo que el usuario poco experimentado se verá obligado a intentar diferentes juegos de valores extremos para mejorar la imagen que obtiene por pantalla.
+
+En el caso de la ecualización automática (Figura~\ref{fig:visual}, en el centro), como se explica en el Apéndice \ref{sec:ecualizado}, el algoritmo {\it mapea} el histograma a uno nuevo, más aplanado. El rango de niveles de gris en este algoritmo es el mismo que en la imagen original, y eso se observa en la escala, a la derecha de la imagen. En este proceso de ecualización, se maximiza la información que muestra la imagen, notándose muchos detalles que no aparecen en las otras formas de visualización. Algunos detalles son inesperados, como por ejemplo, la presencia de algo que podríamos llamar {\it ``viñeteo inverso''}: las esquinas de la imagen se ven más claras como resultado de corregir la imagen con flats en exceso. Dado que este exceso no aparece en las otras formas de visualización, se juzga como aceptable la calibración realizada. El algoritmo de ecualizado implementado resultó ser muy rápido. Una desventaja esperable de este método de visualización es que la imagen aparece, como se dice en la jerga de la fotografía astronómica, {\it muy lavada}, con lo cual se pierde la noción de la relación de magnitudes entre las estrellas de la imagen.
+
+Finalmente, en el caso del reescalado automático entre los percentiles 2 y 98, vemos que esta función recorta la información entre dichos percentiles y luego mapea los datos a una nueva escala de grises entre los valores $-1$ y 1.
+Aunque en esta visualización, el núcleo de la nebulosa queda muy saturado, a los fines de visualizar detalles de la imagen es un procedimiento muy efectivo.
+
+Vale la pena insistir aquí en que estos métodos de visualización, cada uno con sus bondades y sus limitaciones, son solo una forma de que el usuario evalúe el resultado final de todo el proceso, y no tienen utilidad fotométrica. Es por ello que ninguno de los tres se guarda automáticamente en archivo. Los cambios en el histograma se realizan en la memoria RAM y, al cerrar la ventana de visualización, se pierden.
+
+Para cerrar esta sección, se ha probado de abrir las imágenes obtenidas con PyReduc en otro software. Por ejemplo, se han abierto satisfactoriamente con ImageJ y con su versión astronómica AstroImageJ. Estos softwares se usan de forma profesional en varias Universidades y Observatorios del mundo \cite{craig}. Por otro lado, debido a la conversión que realiza la librería \texttt{astropy.io.fits} de imágenes al formato de 32 bits con signo, no ha sido posible abrir satisfactoriamente las imágenes de PyReduc con softwares de tipo amateur como Iris o Siril.
+
+\section{Conclusiones y perspectivas}
+En este trabajo se comentaron las funciones que se implementaron en el software PyReduc para reducción y apilado de imágenes astronómicas DSLR. Se probaron estas funciones con una serie de tomas científicas y de calibración de la nebulosa Messier 8 en el canal verde, con las cuales se comprobó que el software es adecuado para el proceso de reducción de imágenes DSLR monocromáticas. El alineado resultó satisfactorio en las imágenes utilizadas. El apilado de imágenes por promedio simple resultó ser eficiente. Se comprobó que a través de este procedimiento se obtiene un incremento en la relación señal/ruido, cumpliéndose así el objetivo del apilado.
+En cuanto a la visualización final, los tres métodos implementados funcionaron adecuadamente. Aunque cada uno presenta diferentes limitaciones, estas se hallan dentro de lo esperado y estas no son un problema pues su utilidad radica en una visualización rápida de las imágenes obtenidas.
+
+Como perspectivas a futuro, se espera incorporar un algoritmo que permita importar las imágenes RAW a FITS y extraer un canal sin depender de un software externo para este fin. Es importante seguir testeando PyReduc con más imágenes, para testear todas las funciones del software. Además se espera poder reemplazar el algoritmo de apilado con descarte de pixeles extremos (Pixel Rejection) por uno que se ejecute más eficientemente, a los fines de obtener aun más mejoras en la relación señal/ruido. Finalmente, dado que el objetivo de PyReduc es la reducción de imágenes con fines fotométricos, el próximo paso a llevar a cabo es probar las imágenes reducidas y apiladas con algún software de fotometría. Se ha verificado que las imágenes de PyReduc se pueden abrir con AstroImageJ, software que se está usando profesionalmente para este fin, pero aún no se ha dado el paso de realizar mediciones fotométricas.
 
    
 
@@ -495,15 +523,16 @@ En la Figura~\ref{fig:snr} se muestra una gráfica de las mediciones de SNR real
 \newpage
 \appendix
 
-\section{Listado del código principal de PyReduc}
+\section{Apéndice}
+\subsection{Listado del código principal de PyReduc}
 En esta sección se lista el código contenido en el archivo {\tt pyreduc.py}, módulo principal de PyReduc.
 \input{listings1.tex}
 
-\section{Listado del código de alineación con Astroalign}
+\subsection{Listado del código de alineación con Astroalign}
 En esta sección se lista el script utilizado para alinear las tomas calibradas utilizando el software Astroalign. Dicho script está contenido en el módulo \texttt{registrado.py}.
 \input{align.tex}
 
-\section{Listado del código de apilado de PyReduc}
+\subsection{Listado del código de apilado de PyReduc}
 \label{sec:apilado}
 En esta sección se explica el código utilizado por PyReduc para apilar las tomas científicas ya calibradas y alineadas. Este módulo, contenido en el archivo \texttt{apilado.py}, consta de tres funciones: la función principal, \texttt{stacking}, recibe como argumento la lista de imágenes a apilar y las organiza en un arreglo tridimensional. Además, recibe como argumento una variable llamada {\tt rechazar}, que vale 1 si el usuario decidió realizar un promedio simple de las imágenes, o vale 2, si el usuario decidió que se apile con un algoritmo de descarte de valores extremos. En función de esa decisión, la función stacking llama a una de las dos funciones restantes: {\tt no\_rejection} para un promedio simple de las imágenes o {\tt pixel\_rejection} de lo contrario. La función {\tt no\_rejection} toma como argumento el arreglo tridimensional de imágenes a apilar y devuelve, el promedio de todas esas imágenes en una matriz de \texttt{NumPy} de nombre de variable \texttt{stack}. 
 
@@ -519,11 +548,11 @@ Al igual que en la otra opción de apilado, la función \texttt{pixel\_rejection
 El módulo recién descripto se lista a continuación:
 \input{stacking.tex}
 
-\section{Listado del código de visualización de imágenes}
-En esta sección se lista el código utilizado para mostrar por pantalla la imagen final obtenida con el apilado. Este módulo, contenido en el archivo \texttt{visualizacion.py}, tiene tres opciones de visualización: con ecualizado automático, con recorte manual del histograma y con recorte automático entre los percentiles 2 y 98.
+\subsection{Listado del código de visualización de imágenes}
+En esta sección se lista el código utilizado para mostrar por pantalla la imagen final obtenida con el apilado. Este módulo, contenido en el archivo \texttt{visualizacion.py}, tiene tres opciones de visualización: con ecualizado automático, con recorte manual del histograma y con reescalado automático entre los percentiles 2 y 98.
 \input{visualiza.tex}
 
-\section{Método de ecualización del histograma}
+\subsection{Método de ecualización del histograma}
 \label{sec:ecualizado}
 En esta sección, por último, se explica brevemente el método de ecualización del histograma de una imagen y se lista el código del módulo \texttt{ecualizado.py} para implementar la ecualización del histograma de la imagen final obtenida con PyReduc.
 
