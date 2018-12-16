@@ -14,7 +14,7 @@
 \definecolor{deepgreen}{rgb}{0,0.5,0}
 \usepackage[hidelinks]{hyperref}
 \usepackage[font=small, labelfont=bf]{caption} 
-
+\usepackage{cite}
 
 
 \usepackage{listings}
@@ -426,7 +426,7 @@ En la Figura~\ref{fig:laguna0} se muestra una toma científica aún sin procesar
   \caption{\label{fig:laguna0} Toma científica de la Nebulosa Laguna (M8) sin procesar, con el histograma recortado entre los percentiles 2 y 98. Los números en los ejes indican coordenadas en pixeles. La barra lateral indica los niveles de brillo del histograma.}
 \end{figure}
 
-Luego de ejecutar el programa completo, con apilado por promedio simple de pixeles en las tomas ya calibradas y alineadas, se obtuvo la imagen que muestra la Figura~\ref{fig:apiladofinal}.
+Luego de ejecutar el programa completo, con apilado por promedio simple de pixeles en las tomas ya calibradas y alineadas, se obtuvo la imagen que se muestra en la Figura~\ref{fig:apiladofinal}. Obsérvese nuévamente en la región  de pixeles de coordenadas $(1500, 2000)$: alrededor de la estrella que se observaba antes ``aislada'', ha aparecido una región oscura que antes apenas se apreciaba. La nebulosa se halla mucho más definida.
 
 \begin{figure}[!h]
   \centering
@@ -436,7 +436,37 @@ Luego de ejecutar el programa completo, con apilado por promedio simple de pixel
 
 
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{img/histo_00004.png}
+  \caption{\label{fig:histo_sp} Histograma de la imagen sin procesar de la Figura~\ref{fig:laguna0}. La region de interés está ampliada para notar detalles de la distribución.}
+\end{figure}
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{img/histo_final.png}
+  \caption{\label{fig:histo_proc} Histograma de la imagen final procesada de la Figura~\ref{fig:apiladofinal}. La region de interés está ampliada para notar detalles de la distribución.}
+\end{figure}
+
+A los fines de comparar en forma más cuantitativa las dos imágenes, la Figura~\ref{fig:histo_sp} muestra el histograma de la imagen sin procesar, mientras que la Figura~\ref{fig:histo_proc} muestra el histograma de la imagen final apilada. Se observa que en el histograma de la imagen sin apilar, la distribución tiene una dispersión mayor que en el histograma de la imagen final. Esta mayor dispersión en la imagen sin procesar, visible en el ancho del pico y en su altura, es consistente con una presencia de mayor ruido en la imagen.
+
+Una forma posible de probar la calidad de todo el proceso es medir la relación señal/ruido (SNR). Como se ha explicado en la sección \label{sec:tomas}, la reducción de imágenes debería incrementar la SNR, y también lo debería hacer el apilado. Para verificar que esto efectivamente se cumple con el procesado realizado con PyReduc, se ha realizado el siguiente procedimiento:
+
+\begin{enumerate}
+\item Se seleccionó un área cuadrada arbitraria de la imagen, de $50\times50=2500$ pixeles que mostrara el fondo del cielo (sin objetos astronómicos visibles). La esquina superior izquierda de dicha área estaba ubicada coordenadas $(400,400)$.
+\item Se midió para el área elegida el valor promedio $\mu_{bg}$ y su desviación estándar $\sigma_{bg}$.
+\item Se eligió una estrella arbitraria, no saturada, en la imagen\footnote{En un trabajo previo, fuera del alcance de este trabajo, se determinó que la cámara utilizada para estas pruebas perdía linealidad a las 15815 ADU. Estrellas en la imagen con valores ADU mayores que ese, estarán saturadas.}, y utilizando un cuadrado de  $50\times50=2500$ pixeles se midió el valor promedio $\mu_s$. La resta $\mu_s - \mu_{bg}$ representa la amplitud de de la señal, eliminando el ruido, mientras que la desviación estándar del fondo del cielo representa el ruido.
+\item Se calculó la relación señal/ruido en decibeles como $$\mbox{SNR}=10 \log{\left(\frac{\mu_s - \mu_{bg}}{\sigma_{bg}}\right)}$$ Aunque hay diferentes definiciones para la SNR, en este trabajo se eligió esta definición, algo diferente de la de la bibliografía \cite{easton, romanishin}, por su practicidad a la hora de medir, sin necesidad de tomas de referencia o de calcular parámetros de la cámara.
+\end{enumerate}
+
+En la Figura~\ref{fig:snr} se muestra una gráfica de las mediciones de SNR realizadas con el proceso antes descripto, incrementando la cantidad de tomas científicas a apilar de a una por vez. También se incluyen las mediciones de una toma sin reducir, y de una sola toma reducida con Bias, Dark y Flats. Se observa que, efectivamente, una toma reducida tiene una mayor SNR que una toma sin reducir. Además se observa que a medida que se apilan más tomas, la SNR aumenta. Comprobamos así que el apilado, con el conjunto de imágenes de prueba aquí utilizado, mejora la SNR. Queda pendiente comprobar que esta mejora se sigue cumpliendo al apilar un mayor número de tomas científicas, digamos entre 50 y 100 tomas.
+
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{img/SNR.pdf}
+  \caption{\label{fig:snr} Relación señal/ruido (SNR) en función de la cantidad de tomas científicas apiladas. Se nota una mejora de la SNR a medida que se van agregando más tomas científicas. El valor de cero en las absisas indica una sola toma sin reducir, mientras que el valor uno indica una sola toma reducida por Bias, Dark y Flats.}
+\end{figure}
 
 
 
@@ -456,6 +486,7 @@ Luego de ejecutar el programa completo, con apilado por promedio simple de pixel
 \bibitem{aydin}  M. Emre Aydin: {\it ``cr2fits v2''}, Version v2.1.0, 2017, May 21, Zenodo. \url{http://doi.org/10.5281/zenodo.581722}
 \bibitem{astroalign} Martin Beroiz: {\it ``toros-astro/astroalign''}, Version v1.0.3, 2018, May 18. Zenodo. \url{http://doi.org/10.5281/zenodo.1249048}
 \bibitem{easton} Roger L. Easton Jr.: {\it ``Fundamentals of Digital Image Processing''}, Noviembre de 2010, Chester F. Carlson Center for Imaging Science, Rochester Institute of Technology. \url{https://www.cis.rit.edu/class/simg361/Notes_11222010.pdf}
+\bibitem{romanishin} W. Romanishin: {\it ``An Introduction to Astronomical Photometry Using CCDs''},  Octubre de 2006, University of Oklahoma, En Internet: \url{http://www.physics.csbsju.edu/370/photometry/manuals/OU.edu_CCD_photometry_wrccd06.pdf}
 \end{thebibliography}
 
 

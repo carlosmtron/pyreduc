@@ -172,6 +172,7 @@ exp_lights=ft.getval(lista_lights[0],'exptime')
 exp_flat=ft.getval(lista_flat[0],'exptime')
 exp_dark=ft.getval(lista_dark[0], 'exptime')
 
+
 # Proceso de BIAS. Voy a armar una matriz cúbica de los bias.
 print("\nProcesando BIAS. Por favor, aguarde...")
 
