@@ -1,0 +1,1966 @@
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes regla:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): lag
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00006.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00006.fit
+
+Alineando imagen laguna_00005.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-9.47, -15.34)
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-1.31, -9.23)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.51, -1.04)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.36, -10.46)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-21.80, -36.97)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Traceback (most recent call last):
+  File "./pyreduc.py", line 288, in <module>
+    apilado.stacking(lista_lights, rechazar_pixel)
+  File "/home/carlos/pyreduc/apilado.py", line 46, in stacking
+    stack = no_rejection(cubo)
+  File "/home/carlos/pyreduc/apilado.py", line 26, in no_rejection
+    stack = np.mean(cubo[0:cantidad],axis=0)
+NameError: name 'cantidad' is not defined
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes regla:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): la
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00006.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00006.fit
+
+Alineando imagen laguna_00005.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-9.47, -15.34)
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-1.31, -9.23)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.44, -1.07)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.02 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.33, -10.51)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-21.69, -37.08)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 3
+3
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 2
+2
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 2
+Gracias por utilizar PyReduc
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -1151.4662960597925
+Máx: 19142.649890521916
+Promedio: 44.63127956263196
+Desvío Estándar: 180.59947963431227
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 2
+2
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -57
+Ingrese el máximo valor deseado: 232
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ cd procesado/
+carlos@arroway:~/pyreduc/procesado$ ls
+bias_00001.fit  dark_00002.fit  flat_00003.fit    laguna_00004.fit
+bias_00002.fit  dark_00003.fit  flat_00004.fit    laguna_00006.fit
+bias_00003.fit  dark_00004.fit  laguna_00001.fit  stacking.fit
+bias_00004.fit  flat_00001.fit  laguna_00002.fit
+dark_00001.fit  flat_00002.fit  laguna_00003.fit
+carlos@arroway:~/pyreduc/procesado$ mv stacking.fit oldstack.fit
+carlos@arroway:~/pyreduc/procesado$ mv laguna_00006.fit stacking.fit
+carlos@arroway:~/pyreduc/procesado$ cd ..
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -1295.3175982864811
+Máx: 26593.648609010743
+Promedio: 45.19374454551852
+Desvío Estándar: 190.54207365231485
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1 o 2: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -200
+Ingrese el máximo valor deseado: 400
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ nano .gitignore 
+carlos@arroway:~/pyreduc$ git commit -a
+[master 66bee90] Corregida subrutina de visualización y creado un módulo nuevo para procesado de darks y bias
+ 8 files changed, 504 insertions(+), 838 deletions(-)
+ rewrite Informe/informe_fisicomp.log (60%)
+ rewrite __pycache__/apilado.cpython-36.pyc (98%)
+carlos@arroway:~/pyreduc$ git push origin master 
+Enumerando objetos: 23, listo.
+Contando objetos: 100% (23/23), listo.
+Compresión delta usando hasta 4 hilos
+Comprimiendo objetos: 100% (12/12), listo.
+Escribiendo objetos: 100% (12/12), 68.99 KiB | 2.87 MiB/s, listo.
+Total 12 (delta 10), reusado 0 (delta 0)
+remote: Resolving deltas: 100% (10/10), completed with 10 local objects.
+To https://github.com/carlosmtron/pyreduc
+   25f0490..66bee90  master -> master
+carlos@arroway:~/pyreduc$ git commit -a
+[master 406cb7e] Ampliación del informe
+ 5 files changed, 64 insertions(+), 60 deletions(-)
+carlos@arroway:~/pyreduc$ git push origin master 
+Enumerando objetos: 15, listo.
+Contando objetos: 100% (15/15), listo.
+Compresión delta usando hasta 4 hilos
+Comprimiendo objetos: 100% (8/8), listo.
+Escribiendo objetos: 100% (8/8), 115.88 KiB | 4.14 MiB/s, listo.
+Total 8 (delta 7), reusado 0 (delta 0)
+remote: Resolving deltas: 100% (7/7), completed with 7 local objects.
+To https://github.com/carlosmtron/pyreduc
+   66bee90..406cb7e  master -> master
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -1295.3175982864811
+Máx: 26593.648609010743
+Promedio: 45.19374454551852
+Desvío Estándar: 190.54207365231485
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+
+Estadísticas de la imagen:
+Min: -1295.3175982864811
+Máx: 26593.648609010743
+Promedio: 45.19374454551852
+Desvío Estándar: 190.54207365231485
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -200    
+Ingrese el máximo valor deseado: 400
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ emacs visualizacion.py 
+
+(emacs:27015): Gtk-WARNING **: 09:01:01.424: Theme parsing error: cinnamon-applications.css:12:30: The style property GtkWidget:focus-padding is deprecated and shouldn't be used anymore. It will be removed in a future version
+
+(emacs:27015): Gtk-WARNING **: 09:01:01.424: Theme parsing error: cinnamon-applications.css:17:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27015): Gtk-WARNING **: 09:01:01.425: Theme parsing error: cinnamon-applications.css:25:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27015): Gtk-WARNING **: 09:01:01.431: Theme parsing error: gtk.css:2112:4: Junk at end of value for border-left-color
+carlos@arroway:~/pyreduc$ emacs visualizacion.py 
+
+(emacs:27091): Gtk-WARNING **: 09:04:38.505: Theme parsing error: cinnamon-applications.css:12:30: The style property GtkWidget:focus-padding is deprecated and shouldn't be used anymore. It will be removed in a future version
+
+(emacs:27091): Gtk-WARNING **: 09:04:38.505: Theme parsing error: cinnamon-applications.css:17:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27091): Gtk-WARNING **: 09:04:38.505: Theme parsing error: cinnamon-applications.css:25:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27091): Gtk-WARNING **: 09:04:38.511: Theme parsing error: gtk.css:2112:4: Junk at end of value for border-left-color
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.laguna_00002.fit
+
+Estadísticas de la imagen:
+Min: -1182.5974788742574
+Máx: 26372.79151245701
+Promedio: 45.68577461311911
+Desvío Estándar: 184.96435787006513
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.dark_00002.fit
+
+Estadísticas de la imagen:
+Min: -885.0
+Máx: 6635.0
+Promedio: 7.847694427357045
+Desvío Estándar: 43.43467078186041
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.^CTraceback (most recent call last):
+  File "visualizacion.py", line 90, in <module>
+    imagen = input("Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.")
+KeyboardInterrupt
+carlos@arroway:~/pyreduc$ emacs visualizacion.py 
+
+(emacs:27162): Gtk-WARNING **: 09:06:34.596: Theme parsing error: cinnamon-applications.css:12:30: The style property GtkWidget:focus-padding is deprecated and shouldn't be used anymore. It will be removed in a future version
+
+(emacs:27162): Gtk-WARNING **: 09:06:34.596: Theme parsing error: cinnamon-applications.css:17:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27162): Gtk-WARNING **: 09:06:34.596: Theme parsing error: cinnamon-applications.css:25:15: The 'icon-shadow' property has been renamed to '-gtk-icon-shadow'
+
+(emacs:27162): Gtk-WARNING **: 09:06:34.602: Theme parsing error: gtk.css:2112:4: Junk at end of value for border-left-color
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+oldstack.fit
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: 0
+Ingrese el máximo valor deseado: 200
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -1295.3175982864811
+Máx: 26593.648609010743
+Promedio: 45.19374454551852
+Desvío Estándar: 190.54207365231485
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: 0
+Ingrese el máximo valor deseado: 200
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna_00001.fit
+
+Estadísticas de la imagen:
+Min: -1124.5197114111882
+Máx: 23984.539529380552
+Promedio: 45.31548593858369
+Desvío Estándar: 183.44837195282324
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: 0
+Ingrese el máximo valor deseado: 200
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna00006.fit
+Traceback (most recent call last):
+  File "visualizacion.py", line 91, in <module>
+    visual(imagen)
+  File "visualizacion.py", line 68, in visual
+    image_data = ft.getdata(imagen)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/convenience.py", line 192, in getdata
+    hdulist, extidx = _getext(filename, mode, *args, **kwargs)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/convenience.py", line 1011, in _getext
+    hdulist = fitsopen(filename, mode=mode, **kwargs)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/hdu/hdulist.py", line 151, in fitsopen
+    lazy_load_hdus, **kwargs)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/hdu/hdulist.py", line 390, in fromfile
+    lazy_load_hdus=lazy_load_hdus, **kwargs)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/hdu/hdulist.py", line 993, in _readfrom
+    fileobj = _File(fileobj, mode=mode, memmap=memmap, cache=cache)
+  File "/usr/lib/python3/dist-packages/astropy/utils/decorators.py", line 488, in wrapper
+    return function(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/file.py", line 175, in __init__
+    self._open_filename(fileobj, mode, overwrite)
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/file.py", line 531, in _open_filename
+    self._file = fileobj_open(self.name, IO_FITS_MODES[mode])
+  File "/usr/lib/python3/dist-packages/astropy/io/fits/util.py", line 388, in fileobj_open
+    return open(filename, mode, buffering=0)
+FileNotFoundError: [Errno 2] No such file or directory: 'laguna00006.fit'
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna_00004.fit
+
+Estadísticas de la imagen:
+Min: -1107.504836634516
+Máx: 22231.46900947909
+Promedio: 44.926322809508996
+Desvío Estándar: 181.55787217412993
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -200    
+Ingrese el máximo valor deseado: 400
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna_00004.fit
+
+Estadísticas de la imagen:
+Min: -1107.504836634516
+Máx: 22231.46900947909
+Promedio: 44.926322809508996
+Desvío Estándar: 181.55787217412993
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+oldstack.fit
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ git commit -a
+[master 84875bc] 	modificado:     Informe/informe_fisicomp.tex 	modificado:     apilado.py 	modificado:     pyreduc.py 	modificado:     visualizacion.py
+ 8 files changed, 348 insertions(+), 117 deletions(-)
+carlos@arroway:~/pyreduc$ git push origin master
+Enumerando objetos: 21, listo.
+Contando objetos: 100% (21/21), listo.
+Compresión delta usando hasta 4 hilos
+Comprimiendo objetos: 100% (11/11), listo.
+Escribiendo objetos: 100% (11/11), 1.41 MiB | 530.00 KiB/s, listo.
+Total 11 (delta 9), reusado 0 (delta 0)
+remote: Resolving deltas: 100% (9/9), completed with 9 local objects.
+To https://github.com/carlosmtron/pyreduc
+   406cb7e..84875bc  master -> master
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+oldstack.fit
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+oldstack.fit
+
+Estadísticas de la imagen:
+Min: -233.6097386068279
+Máx: 17547.012283046843
+Promedio: 45.24194257763989
+Desvío Estándar: 175.4903960943388
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ git commit -a
+[master a30b7e6] Márgenes más pequeños
+ 1 file changed, 4 insertions(+)
+carlos@arroway:~/pyreduc$ git push origin master
+Enumerando objetos: 5, listo.
+Contando objetos: 100% (5/5), listo.
+Compresión delta usando hasta 4 hilos
+Comprimiendo objetos: 100% (3/3), listo.
+Escribiendo objetos: 100% (3/3), 384 bytes | 384.00 KiB/s, listo.
+Total 3 (delta 2), reusado 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/carlosmtron/pyreduc
+   84875bc..a30b7e6  master -> master
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): lag
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00006.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00008.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00007.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00009.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00006.fit
+
+Alineando imagen laguna_00005.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-9.34, -15.38)
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-1.38, -9.24)
+
+Alineando imagen laguna_00008.fit
+Rotación: -0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (17.02, 30.53)
+
+Alineando imagen laguna_00007.fit
+Rotación: -0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.27, 3.83)
+
+Alineando imagen laguna_00009.fit
+Rotación: -0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-35.73, -45.26)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.46, -1.05)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.02 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.35, -10.50)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-21.99, -37.49)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 2
+Gracias por utilizar PyReduc
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 2
+2
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -100
+Ingrese el máximo valor deseado: 400
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -100
+Ingrese el máximo valor deseado: 300
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -500
+Ingrese el máximo valor deseado: 600
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: -100
+Ingrese el máximo valor deseado: 400
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna_00004.fit
+
+Estadísticas de la imagen:
+Min: -1171.4089551292573
+Máx: 21065.226932424946
+Promedio: 33.64870670760101
+Desvío Estándar: 180.41447100250818
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+laguna_00004.fit
+
+Estadísticas de la imagen:
+Min: -1171.4089551292573
+Máx: 21065.226932424946
+Promedio: 33.64870670760101
+Desvío Estándar: 180.41447100250818
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 1
+1
+
+A continuación se mostrará el histograma de la imagen apilada y se le pedirá que elija los valores límites para estirar el histograma antes de visualizar la imagen. Esto es solo para visualizarla mejor y no afectará los datos de la imagen.
+Cierre el histograma para continuar...
+A partir del histograma, ingrese el mínimo valor deseado: 1
+Ingrese el máximo valor deseado: 220
+Desea usar una interpolación para mejorar el aspecto visual de la imágen? (Esto no afectará a los datos de la imagen, es solo para la visualización) (s/N): s
+carlos@arroway:~/pyreduc$ python3 visualizacion.py 
+Ingrese el nombre de archivo de la imagen a visualizar. Se asume que la imagen está ubicada en la carpeta procesado.
+stacking.fit
+
+Estadísticas de la imagen:
+Min: -195.6192670481521
+Máx: 16816.22324063118
+Promedio: 33.93863383558086
+Desvío Estándar: 174.68198999243913
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): la
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00002.fit
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-6.08, -9.41)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -726.2762408503497
+Máx: 20546.941255907244
+Promedio: 34.16877945908906
+Desvío Estándar: 180.34529614280282
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 2
+Gracias por utilizar PyReduc
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): lag
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00003.fit
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (9.59, 8.05)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (3.67, -1.28)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -491.6145436335746
+Máx: 17435.638097148025
+Promedio: 34.24167395455959
+Desvío Estándar: 177.49923843327053
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: ^CTraceback (most recent call last):
+  File "./pyreduc.py", line 265, in <module>
+    visualizacion.visual("stacking.fit")
+  File "/home/carlos/pyreduc/visualizacion.py", line 83, in visual
+    n = input("Ingrese 1, 2 o 3: ")
+KeyboardInterrupt
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): la
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00003.fit
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (9.71, 8.13)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (3.96, -1.17)
+
+Alineando imagen laguna_00004.fit
+Rotación: -0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-20.49, -27.73)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -381.98183874688516
+Máx: 17309.80426717675
+Promedio: 34.09411518333401
+Desvío Estándar: 175.69227957263467
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 2
+Gracias por utilizar PyReduc
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter 
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): la
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00005.fit
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.15, 6.12)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (17.89, 14.25)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (11.83, 4.84)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-12.35, -21.61)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -349.39118193144947
+Máx: 17353.887641620786
+Promedio: 33.941964685932795
+Desvío Estándar: 175.20115016959213
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: ^CTraceback (most recent call last):
+  File "./pyreduc.py", line 265, in <module>
+    visualizacion.visual("stacking.fit")
+  File "/home/carlos/pyreduc/visualizacion.py", line 83, in visual
+    n = input("Ingrese 1, 2 o 3: ")
+KeyboardInterrupt
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): la
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00006.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00006.fit
+
+Alineando imagen laguna_00005.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-9.70, -15.40)
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-1.31, -9.23)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.46, -1.05)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.02 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.35, -10.50)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-21.96, -36.95)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -296.98563582818514
+Máx: 17279.507420490812
+Promedio: 33.922013784593034
+Desvío Estándar: 175.30870852979706
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: ^CTraceback (most recent call last):
+  File "./pyreduc.py", line 265, in <module>
+    visualizacion.visual("stacking.fit")
+  File "/home/carlos/pyreduc/visualizacion.py", line 83, in visual
+    n = input("Ingrese 1, 2 o 3: ")
+KeyboardInterrupt
+carlos@arroway:~/pyreduc$ ./pyreduc.py 
+_______________________________________
+PyReduc
+
+Programa de reducción de imágenes FITS
+Autor: Carlos Mauricio Silva
+Versión: 0.2.0
+_______________________________________
+
+Las imágenes FITS deben estar en un directorio llamado
+"pyreduc/FITS/", dentro del directorio home.
+Los prefijos de los archivos deben seguir las siguientes reglas:
+ FLATS: "flat*"
+ DARKS: "dark*"
+ BIAS: "bias*" 
+donde "*" significa "cualquier cosa". El prefijo de los LIGHTS se ingresa por teclado
+
+Antes de empezar a trabajar, se borrará el directorio ~/pyreduc/procesado/
+Para cancelar la operación presione Ctrl+C. Para continuar presione Enter
+Aguarde mientras se crea una copia de sus imágenes
+
+Todas las imágenes se han copiado a /home/carlos/pyreduc/procesado/
+
+Comenzando a trabajar con sus imágenes en el directorio /home/carlos/pyreduc/procesado
+
+Introduzca el prefijo de los archivos lights (tomas científicas): lagu
+
+
+Archivos DARK:
+
+dark_00004.fit: 3476x5208  EXPTIME=30.0 s
+dark_00007.fit: 3476x5208  EXPTIME=30.0 s
+dark_00002.fit: 3476x5208  EXPTIME=30.0 s
+dark_00005.fit: 3476x5208  EXPTIME=30.0 s
+dark_00009.fit: 3476x5208  EXPTIME=30.0 s
+dark_00001.fit: 3476x5208  EXPTIME=30.0 s
+dark_00003.fit: 3476x5208  EXPTIME=30.0 s
+dark_00010.fit: 3476x5208  EXPTIME=30.0 s
+dark_00008.fit: 3476x5208  EXPTIME=30.0 s
+dark_00006.fit: 3476x5208  EXPTIME=30.0 s
+
+
+Archivos BIAS:
+
+bias_00013.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00017.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00005.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00006.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00019.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00008.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00015.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00011.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00010.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00001.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00002.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00020.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00003.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00009.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00004.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00014.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00016.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00012.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00018.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+bias_00007.fit: 3476x5208  EXPTIME=0.000250000011874363 s
+
+
+Archivos FLAT:
+
+flat_00003.fit: 3476x5208  EXPTIME=0.25 s
+flat_00011.fit: 3476x5208  EXPTIME=0.25 s
+flat_00007.fit: 3476x5208  EXPTIME=0.25 s
+flat_00006.fit: 3476x5208  EXPTIME=0.25 s
+flat_00013.fit: 3476x5208  EXPTIME=0.25 s
+flat_00014.fit: 3476x5208  EXPTIME=0.25 s
+flat_00010.fit: 3476x5208  EXPTIME=0.25 s
+flat_00012.fit: 3476x5208  EXPTIME=0.25 s
+flat_00002.fit: 3476x5208  EXPTIME=0.25 s
+flat_00008.fit: 3476x5208  EXPTIME=0.25 s
+flat_00004.fit: 3476x5208  EXPTIME=0.25 s
+flat_00005.fit: 3476x5208  EXPTIME=0.25 s
+flat_00001.fit: 3476x5208  EXPTIME=0.25 s
+flat_00009.fit: 3476x5208  EXPTIME=0.25 s
+flat_00015.fit: 3476x5208  EXPTIME=0.25 s
+
+
+Archivos LIGHTS (tomas científicas):
+
+laguna_00006.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00005.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00003.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00007.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00002.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00001.fit: 3476x5208  EXPTIME=30.0 s
+laguna_00004.fit: 3476x5208  EXPTIME=30.0 s
+
+Tenga en cuenta que para la calibración se toma el tiempo de exposición de su primer toma científica.
+PyReduc no dará los mejores resultados si sus tomas científicas tienen diferentes tiempos de exposición.
+Presione una tecla para continuar
+
+Al final del proceso se realizará un apilado de sus imágenes calibradas y alineadas. Este se puede realizar a través de un promedio simple de las imágenes, o con un promedio que rechace valores extremos (Pixel Rejection). ¿Qué desea hacer?
+1. Apilar promediando las imágenes
+2. Aplicar Pixel Rejection (POCO EFICIENTE. NO RECOMENDADO.)
+3. No apilar
+Ingrese 1, 2 o 3: 1
+
+Procesando BIAS. Por favor, aguarde...
+
+Procesando DARK. Por favor, aguarde...
+
+Sustrayendo un master-bias a los dark. Aguarde...
+
+Procesando FLATS. Por favor, aguarde...
+
+Comenzando la alineación.
+
+La toma de referencia es laguna_00006.fit
+
+Alineando imagen laguna_00005.fit
+Rotación: 0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-9.46, -15.34)
+
+Alineando imagen laguna_00003.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-1.31, -9.23)
+
+Alineando imagen laguna_00007.fit
+Rotación: -0.00 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.27, 3.83)
+
+Alineando imagen laguna_00002.fit
+Rotación: 0.01 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (8.46, -1.05)
+
+Alineando imagen laguna_00001.fit
+Rotación: 0.02 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (2.35, -10.49)
+
+Alineando imagen laguna_00004.fit
+Rotación: 0.02 grados
+Factor de escala: 1.00
+Traslación: (x, y) = (-21.68, -37.42)
+
+Registrado realizado con éxito
+
+Comenzando el apilado...
+Apilado realizado con éxito. La salida se ha guardado en el archivo stacking.fit
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 1
+
+Estadísticas de la imagen:
+Min: -248.08390438066954
+Máx: 17518.873538183598
+Promedio: 33.91806843283286
+Desvío Estándar: 175.50242358908372
+
+Para visualizar la imagen correctamente, se puede realizar un clipping (recorte manual) personalizado del histograma, elegir el ecualizado automático o un stretching automático entre los percentiles 2 y 98. ¿Qué desea hacer?
+1. Recorte Manual del histograma
+2. Ecualización automática del histograma
+3. Recorte automático entre los percentiles 2 y 98
+Ingrese 1, 2 o 3: 3
+3
+¿Qué desea hacer?
+1: Ver la imagen resultante
+2: Salir
+Ingrese 1 o 2: 2
+Gracias por utilizar PyReduc
+carlos@arroway:~/pyreduc$ 
+
