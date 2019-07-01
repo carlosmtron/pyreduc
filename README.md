@@ -1,4 +1,5 @@
 # PyReduc
+[![DOI](https://zenodo.org/badge/133057983.svg)](https://zenodo.org/badge/latestdoi/133057983)
 
 ## Programa de reducción de imágenes astronómicas FITS usando Python
 Autor: Carlos Mauricio Silva
